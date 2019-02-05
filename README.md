@@ -17,10 +17,8 @@ You can log in using the general user and password of the Mercy Corps organizati
 
 4. As a user, I wanna be able to check and confirm my logged trips.
 
-5. As a user who will log every trip, I wanna be able to show the report of all logged trips.
+5. As a user who needs to view their reports, I wanna be able to view reports by month.
 
-6. As a user who needs to keep track of their trips, I wanna be able to view trips by date.
+6. As a user who wants to share their reports, I wanna be able to download an excel version of my reports.
 
-7. As a user who wants to share their reports, I wanna be able to download an excel version of my reports.
-
-8. As a user who may need to leave the account, I want to be able to log out.
+7. As a user who may need to leave the account, I want to be able to log out.
