@@ -1,5 +1,5 @@
 # KamSafer
-A React js app made for Mercy Corps employee uses MC cars, to register information about his trip for business or personal purpose .
+A React js app made for Mercy Corps employee uses MC cars .
 > Our client : Anam Raheem
 
 ## What is KamSafer? 
