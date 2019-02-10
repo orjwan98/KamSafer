@@ -17,7 +17,7 @@ logs.belongsTo(notes, {
 });
 
 const seq = new Promise((resolve, reject) => {
-  db.sync({ force: true })
+  db.sync()
     .then(() => {
       resolve();
     })
