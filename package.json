@@ -22,8 +22,11 @@
   },
   "homepage": "https://github.com/FACK1/KamSafer#readme",
   "dependencies": {
+    "env2": "^2.2.2",
     "express": "^4.16.4",
-    "nodemon": "^1.18.10"
+    "nodemon": "^1.18.10",
+    "pg": "^7.8.0",
+    "sequelize": "^4.42.0"
   },
   "devDependencies": {
     "eslint": "^5.13.0",
