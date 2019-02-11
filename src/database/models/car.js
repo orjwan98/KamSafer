@@ -5,13 +5,12 @@ const seq = require('../config/db_connection');
 const car = seq.define(
   'car',
   {
-    model: {
+    model_color: {
       type: Sequelize.STRING,
       allowNull: false,
-      unique: true,
     },
     car_no: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.STRING,
       allowNull: false,
       unique: true,
     },
