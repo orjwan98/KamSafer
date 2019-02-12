@@ -9,15 +9,31 @@ import Confirm from "./components/Confirm";
 import Show from "./components/Show";
 import Calendar from "./components/Calendar";
 import { BrowserRouter, Route } from "react-router-dom";
+import data from "./data.json";
 import "typeface-roboto";
 
 class App extends Component {
+  state = {
+    carData: null
+  };
+
+  selectCar = e => {
+    const chosen = data.filter(ele => {
+      return ele.car_no === e;
+    });
+    this.setState({ carData: chosen });
+  };
+
   render() {
     return (
       <BrowserRouter>
         <React.Fragment>
           <Route path="/" component={Header} />
-          <Route exact path="/cars" component={Cars} />
+          <Route
+            exact
+            path="/cars"
+            component={() => <Cars data={data} handler={this.selectCar} />}
+          />
           <Route exact path="/" component={Login} />
           <Route exact path="/" component={Home} />
           <Route exact path="/" component={Footer} />
