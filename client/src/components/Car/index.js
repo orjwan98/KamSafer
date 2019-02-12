@@ -4,6 +4,8 @@ import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
+import { Link } from "react-router-dom";
+
 const styles = {
   root: {
     borderLeft: "4px solid #A11010",
@@ -24,17 +26,19 @@ const styles = {
 const Car = ({ owner, model, car_no, classes, handler }) => {
   return (
     <Card className={classes.root} onClick={() => handler(car_no)}>
-      <CardContent>
-        <Typography variant="h6">{owner}'s Car</Typography>
-        <div className={classes.position}>
-          <Typography variant="subtitle1" className={classes.childrenFont}>
-            {model}
-          </Typography>
-          <Typography variant="subtitle1" className={classes.childrenFont}>
-            {car_no}
-          </Typography>
-        </div>
-      </CardContent>
+      <Link to="/reports">
+        <CardContent>
+          <Typography variant="h6">{owner}'s Car</Typography>
+          <div className={classes.position}>
+            <Typography variant="subtitle1" className={classes.childrenFont}>
+              {model}
+            </Typography>
+            <Typography variant="subtitle1" className={classes.childrenFont}>
+              {car_no}
+            </Typography>
+          </div>
+        </CardContent>
+      </Link>
     </Card>
   );
 };
