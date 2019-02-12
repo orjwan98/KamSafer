@@ -21,9 +21,9 @@ const styles = {
   }
 };
 
-const Car = ({ owner, model, car_no, classes }) => {
+const Car = ({ owner, model, car_no, classes, handler }) => {
   return (
-    <Card className={classes.root}>
+    <Card className={classes.root} onClick={() => handler(car_no)}>
       <CardContent>
         <Typography variant="h6">{owner}'s Car</Typography>
         <div className={classes.position}>
