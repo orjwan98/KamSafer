@@ -1,23 +1,21 @@
 import React, { Component } from "react";
 import Car from "../Car";
-import data from "../../data.json";
 
 class Cars extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      data: data
-    };
   }
   render() {
     return (
       <div className="cars">
-        {this.state.data.map(element => {
+        {this.props.data.map(element => {
           return (
             <Car
+              key={element.car_no}
               owner={element.owner}
               model={element.model}
               car_no={element.car_no}
+              handler={this.props.handler}
             />
           );
         })}
