@@ -5,7 +5,7 @@ const logs = require('./logs');
 const addnote = require('./addnote');
 const logmonth = require('./logmonth');
 const notes = require('./notes');
-
+const login = require('./login');
 
 const router = express.Router();
 router.get('/cars', cars.get);
@@ -14,6 +14,6 @@ router.get('/logs', logs.get);
 router.post('/addnote', addnote.post);
 router.get('/notes', notes.get);
 router.get('/logmonth/:year/:month', logmonth.get);
-
+router.post('/login', login.post);
 
 module.exports = router;
