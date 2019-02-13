@@ -11,6 +11,7 @@ class Cars extends Component {
         {this.props.data.map(element => {
           return (
             <Car
+              history={this.props.history}
               key={element.car_no}
               owner={element.owner}
               model={element.model}
