@@ -23,22 +23,20 @@ const styles = {
   }
 };
 
-const Car = ({ owner, model, car_no, classes, handler }) => {
+const Car = ({ owner, model, car_no, classes, handler, history }) => {
   return (
-    <Card className={classes.root} onClick={() => handler(car_no)}>
-      <Link to="/reports">
-        <CardContent>
-          <Typography variant="h6">{owner}'s Car</Typography>
-          <div className={classes.position}>
-            <Typography variant="subtitle1" className={classes.childrenFont}>
-              {model}
-            </Typography>
-            <Typography variant="subtitle1" className={classes.childrenFont}>
-              {car_no}
-            </Typography>
-          </div>
-        </CardContent>
-      </Link>
+    <Card className={classes.root} onClick={() => handler(car_no, history)}>
+      <CardContent>
+        <Typography variant="h6">{owner}'s Car</Typography>
+        <div className={classes.position}>
+          <Typography variant="subtitle1" className={classes.childrenFont}>
+            {model}
+          </Typography>
+          <Typography variant="subtitle1" className={classes.childrenFont}>
+            {car_no}
+          </Typography>
+        </div>
+      </CardContent>
     </Card>
   );
 };
