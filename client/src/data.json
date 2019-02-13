@@ -1,0 +1,8 @@
+[
+  { "model": "Toyota Avinsis", "car_no": "33-228-70", "owner": "Ryan" },
+  { "model": "Toyota Avinsis", "car_no": "32-531-74", "owner": "Andy" },
+  { "model": "Toyota Corolla", "car_no": "28-760-74", "owner": "MC Staff" },
+  { "model": "Toyota Corolla", "car_no": "32-635-74", "owner": "Anam" },
+  { "model": "Mazda 3", "car_no": "30-772-71", "owner": "Mahmoud" },
+  { "model": "Mazda 3", "car_no": "30-773-71", "owner": "MC Staff" }
+]
