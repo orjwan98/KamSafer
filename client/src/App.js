@@ -16,11 +16,13 @@ class App extends Component {
     carData: null
   };
 
-  selectCar = e => {
+  selectCar = (e, history) => {
     const chosen = data.filter(ele => {
       return ele.car_no === e;
     });
-    this.setState({ carData: chosen });
+    this.setState({ carData: chosen }, () => {
+      history.push("/reports");
+    });
   };
 
   render() {
@@ -31,7 +33,9 @@ class App extends Component {
           <Route
             exact
             path="/cars"
-            component={() => <Cars data={data} handler={this.selectCar} />}
+            component={props => (
+              <Cars {...props} data={data} handler={this.selectCar} />
+            )}
           />
           <Route exact path="/reports" component={Reports} />
           <Route exact path="/" component={Login} />
