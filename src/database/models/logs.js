@@ -9,8 +9,8 @@ const logs = seq.define(
       type: Sequelize.STRING,
       allowNull: false,
     },
-    note_id: {
-      type: Sequelize.INTEGER,
+    note: {
+      type: Sequelize.STRING,
       allowNull: false,
     },
     start_km: {
