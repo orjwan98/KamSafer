@@ -10,12 +10,6 @@ logs.belongsTo(car, {
   targetKey: 'id',
 });
 
-logs.belongsTo(notes, {
-  onDelete: 'CASCADE',
-  foreignKey: 'note_id',
-  targetKey: 'id',
-});
-
 const seq = new Promise((resolve, reject) => {
   db.sync()
     .then(() => {
