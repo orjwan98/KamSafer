@@ -7,7 +7,6 @@ exports.get = (req, res) => {
   console.log(req.params.month);
   const year = req.params.year;
   const month = req.params.month;
-  // const from = `${req.params.year}-${req.params.month}-1T22:00:00.000Z`;
   const from = new Date(year, month - 1, 1).toISOString();
   const to = new Date(year, month, 1).toISOString();
   const car_id = 1;
