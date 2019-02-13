@@ -1,17 +1,26 @@
 import React, { Component } from "react";
-class Cars  extends Component {
+import Car from "../Car";
+
+class Cars extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      style: 'car-card'
-    };
   }
-
-
-    render() {
-      return (<div className="cars">
-      <h1> Hello World Cars!</h1>
-      </div>)
+  render() {
+    return (
+      <div className="cars">
+        {this.props.data.map(element => {
+          return (
+            <Car
+              key={element.car_no}
+              owner={element.owner}
+              model={element.model}
+              car_no={element.car_no}
+              handler={this.props.handler}
+            />
+          );
+        })}
+      </div>
+    );
+  }
 }
-}
-export default Cars
+export default Cars;
