@@ -1,5 +1,4 @@
 const bcrypt = require('bcryptjs');
-const Sequelize = require('sequelize');
 const jwt = require('jsonwebtoken');
 require('env2')('.env');
 

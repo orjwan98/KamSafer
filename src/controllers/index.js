@@ -6,14 +6,15 @@ const addnote = require('./addnote');
 const logmonth = require('./logmonth');
 const notes = require('./notes');
 const login = require('./login');
+const cookiesValidator = require('../validation/cookieVaildator.js');
 
 const router = express.Router();
-router.get('/cars', cars.get);
-router.post('/add', add.post);
-router.get('/logs', logs.get);
-router.post('/addnote', addnote.post);
-router.get('/notes', notes.get);
-router.get('/logmonth/:year/:month', logmonth.get);
+router.get('/cars', cookiesValidator, cars.get);
+router.post('/add', cookiesValidator, add.post);
+router.get('/logs', cookiesValidator, logs.get);
+router.post('/addnote', cookiesValidator, addnote.post);
+router.get('/notes', cookiesValidator, notes.get);
+router.get('/logmonth/:year/:month', cookiesValidator, logmonth.get);
 router.post('/login', login.post);
 
 module.exports = router;
