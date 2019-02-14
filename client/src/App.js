@@ -46,7 +46,6 @@ class App extends Component {
           <Route exact path="/" component={Confirm} />
           <Route exact path="/" component={Calendar} />
           <Route exact path="/add" component={Add} />
-
         </React.Fragment>
       </BrowserRouter>
     );
