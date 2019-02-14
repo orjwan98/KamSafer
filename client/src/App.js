@@ -15,7 +15,19 @@ import "typeface-roboto";
 
 class App extends Component {
   state = {
-    carData: null
+    carData: null,
+    purpose: null,
+    driver: null,
+    startKM: null,
+    endKM: null,
+    total: null,
+    notes: null
+  };
+
+  handleChange = name => event => {
+    console.log(event.target.value);
+    this.setState({ [name]: event.target.value });
+    //console.log(this.state);
   };
 
   selectCar = (e, history) => {
@@ -31,7 +43,7 @@ class App extends Component {
     return (
       <BrowserRouter>
         <React.Fragment>
-          <Route path="/" component={Header} />
+          <Route exact path="/header" component={Header} />
           <Route
             exact
             path="/cars"
@@ -45,7 +57,20 @@ class App extends Component {
           <Route exact path="/" component={Footer} />
           <Route exact path="/" component={Confirm} />
           <Route exact path="/" component={Calendar} />
-          <Route exact path="/add" component={Add} />
+          <Route
+            exact
+            path="/add"
+            component={() => (
+              <Add
+                endKM={this.state.endKM}
+                startKM={this.state.startKM}
+                total={this.state.total}
+                driver={this.state.driver}
+                notes={this.state.notes}
+                handleChange={this.handleChange}
+              />
+            )}
+          />
         </React.Fragment>
       </BrowserRouter>
     );
