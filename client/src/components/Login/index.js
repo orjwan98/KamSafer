@@ -5,6 +5,7 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import { withStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
+import { getData } from "../utl/loginHelper";
 const styles = {
   button: {
     backgroundColor: "red"
@@ -28,18 +29,9 @@ class Login extends Component {
 
   handleSubmit = event => {
     const { history } = this.props;
-    const username = this.state.username;
-    const password = this.state.password;
+    const { username, password } = this.state;
     event.preventDefault();
-    const data = JSON.stringify({ username, password });
-    fetch("/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: data
-    })
-      .then(response => {
-        return response.json();
-      })
+    getData({ username, password })
       .then(result => {
         if (result.logged) {
           history.push("/cars");
@@ -50,7 +42,7 @@ class Login extends Component {
         }
       })
       .catch(error => {
-        console.log(error);
+        console.log("An error has occurred please try again");
       });
   };
 
