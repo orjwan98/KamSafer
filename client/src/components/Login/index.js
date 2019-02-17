@@ -5,7 +5,7 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import { withStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
-import { getData } from "../utl/loginHelper";
+import { loginHelper } from "../utl/loginHelper";
 const styles = {
   button: {
     backgroundColor: "red"
@@ -31,7 +31,7 @@ class Login extends Component {
     const { history } = this.props;
     const { username, password } = this.state;
     event.preventDefault();
-    getData({ username, password })
+    loginHelper({ username, password })
       .then(result => {
         if (result.logged) {
           history.push("/cars");
