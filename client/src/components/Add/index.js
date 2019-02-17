@@ -10,6 +10,9 @@ import TextField from "@material-ui/core/TextField";
 import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
 import green from "@material-ui/core/colors/green";
+import red from "@material-ui/core/colors/red";
+import grey from "@material-ui/core/colors/grey";
+import Button from "@material-ui/core/Button";
 
 const styles = theme => ({
   root: {
@@ -17,14 +20,15 @@ const styles = theme => ({
     color: green[600],
     "&$checked": {
       color: green[500]
-    }
+    },
+    margin:10,
   },
   formControl: {
     margin: theme.spacing.unit * 3,
     direction: "row"
   },
   group: {
-    margin: `${theme.spacing.unit}px 0`,
+    margin: `${theme.spacing.unit}px `,
     flexDirection: "row"
   },
   startEnd: {
@@ -49,6 +53,14 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
     marginBottom: theme.spacing.unit
+  },
+  Addbtn:{
+    backgroundColor:red[900],
+    margin: "50px",
+    color:grey[50],
+    width:150,
+    height:40,
+    fontSize:20,
   }
 });
 
@@ -56,16 +68,19 @@ class RadioButtonsGroup extends React.Component {
   state = {
     value: "personal"
   };
-
+  componentDidMount(){
+    this.props.getlastkm()
+  }
   render() {
     const { classes } = this.props;
     return (
+      <div>
       <div className={classes.root}>
         <FormControl
           flexDirection="row"
           component="fieldset"
           className={classes.formControl}
-        >
+          onSubmit={this.props.submit}>
           <FormLabel component="legend" className="Purpose">
             Purpose
           </FormLabel>
@@ -73,12 +88,13 @@ class RadioButtonsGroup extends React.Component {
             aria-label="Purpose"
             name="purpose"
             className={classes.group}
-            value={this.state.value}
+            value={this.props.purpose}
+            onChange={this.props.handleChange("purpose")}
           >
             <FormControlLabel
               value="Buisness"
               control={
-                <Radio color="primary" onChange={this.props.handleChange} />
+                <Radio color="primary"  />
               }
               label="Buisness"
               labelPlacement="start"
@@ -92,66 +108,65 @@ class RadioButtonsGroup extends React.Component {
           </RadioGroup>
           <div className={classes.startEnd}>
             <TextField
-              className={classes.narrow}
+            disabled
+              className={classes.norrow}
               id="text1"
-              autoFocus={true}
               type="text"
-              name="startKM"
-              label="Start KM"
+              name="start_km"
               margin="normal"
               color="secondary"
-              value={this.props.startKM}
-              onChange={this.props.handleChange("startKM")}
+              label="Start KM"
+              value={this.props.start_km?(this.props.start_km):(0)}
+              onChange={this.props.handleChange("start_km")}
             />
 
             <TextField
               className={classes.narrow}
               id="text2"
-              autoFocus={true}
               type="text"
-              name="endKM"
+              name="end_km"
               label="End Km"
               margin="normal"
-              value={this.props.endKM}
-              onChange={this.props.handleChange("endKM")}
+              value={this.props.end_km}
+              onChange={this.props.handleChange("end_km")}
             />
           </div>
           <TextField
+            disabled
             className={classes.normal}
             id="text3"
-            autoFocus={true}
             name="total"
             type="text"
             label="Total"
-            value={this.props.total}
+            value={this.props.end_km?(this.props.end_km - this.props.start_km):(0)}
             onChange={this.props.handleChange("total")}
           />
           <TextField
             className={classes.normal}
             id="text4"
-            autoFocus={true}
             type="text"
             label="Driver"
-            name="driver"
-            value={this.props.driver}
-            onChange={this.props.handleChange("driver")}
+            name="driver_name"
+            value={this.props.driver_name}
+            onChange={this.props.handleChange("driver_name")}
           />
           <TextField
             className={classes.normal}
             id="text5"
-            autoFocus={true}
             type="text"
             label="Note"
-            name="notes"
-            value={this.props.notes}
-            onChange={this.props.handleChange("notes")}
+            name="note"
+            value={this.props.note}
+            onChange={this.props.handleChange("note")}
           />
+          {this.state.failed && <span>Data incorrect</span>}
+        <Button onClick={this.props.submit} variant="raised" type="submit" className={classes.Addbtn}>Add</Button>
         </FormControl>
+      </div>
       </div>
     );
   }
 }
-
 RadioButtonsGroup.propTypes = {
   classes: PropTypes.object.isRequired
 };

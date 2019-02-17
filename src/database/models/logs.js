@@ -36,4 +36,5 @@ const logs = seq.define(
   { timestamps: false },
 );
 
+
 module.exports = logs;

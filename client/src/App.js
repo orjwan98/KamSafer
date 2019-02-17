@@ -8,6 +8,7 @@ import Confirm from "./components/Confirm";
 import Calendar from "./components/Calendar";
 import Reports from "./components/Reports";
 import Add from "./components/Add";
+import { addHelper } from "./utils/addHelper.js";
 
 import { BrowserRouter, Route } from "react-router-dom";
 import data from "./data.json";
@@ -15,21 +16,49 @@ import "typeface-roboto";
 
 class App extends Component {
   state = {
-    carData: null,
-    purpose: null,
-    driver: null,
-    startKM: null,
-    endKM: null,
+    carData: 1,
+    purpose: "Personal",
+    driver_name: null,
+    start_km: null,
+    end_km: null,
     total: null,
-    notes: null
+    note: null,
+    failed:false
   };
+
+  getlastkm =()=>{
+    fetch("/getstartkm/"+this.state.carData).then(response=>{
+      return response.json()
+    }).then(result=>{
+      this.setState({start_km:result[0].last_log_km})
+    })
+  }
 
   handleChange = name => event => {
     console.log(event.target.value);
     this.setState({ [name]: event.target.value });
     //console.log(this.state);
   };
-
+  submit = (events) => {
+    const { history } = this.props;
+    const { purpose, start_km, end_km, driver_name, note} = this.state;
+    events.preventDefault();
+    addHelper({ purpose, start_km, end_km, driver_name, note })
+      .then(result => {
+        if (result.logged) {
+          history.push("/add");
+        } else {
+          this.setState({
+            failed: true
+          });
+        }
+      })
+      .catch(error => {
+        console.log(error);
+        console.log("An error has occurred please try again");
+      });
+      events.preventDefault();
+  }
   selectCar = (e, history) => {
     const chosen = data.filter(ele => {
       return ele.car_no === e;
@@ -38,36 +67,38 @@ class App extends Component {
       history.push("/reports");
     });
   };
-
   render() {
     return (
       <BrowserRouter>
         <React.Fragment>
-          <Route exact path="/header" component={Header} />
+          <Route  path="/" component={Header} />
           <Route
             exact
             path="/cars"
-            component={props => (
+            render={props => (
               <Cars {...props} data={data} handler={this.selectCar} />
             )}
           />
           <Route exact path="/home" component={Reports} />
-          <Route exact path="/" component={Login} />
-          <Route exact path="/" component={Home} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/home" component={Home} />
           <Route exact path="/" component={Footer} />
-          <Route exact path="/" component={Confirm} />
-          <Route exact path="/" component={Calendar} />
+          <Route exact path="/confirm" component={Confirm} />
+          <Route exact path="/clender" component={Calendar} />
           <Route
             exact
             path="/add"
-            component={() => (
+            render={() => (
               <Add
-                endKM={this.state.endKM}
-                startKM={this.state.startKM}
+                end_km={this.state.end_km}
+                start_km={this.state.start_km}
                 total={this.state.total}
-                driver={this.state.driver}
-                notes={this.state.notes}
+                driver_name={this.state.driver_name}
+                note={this.state.note}
+                purpose={this.state.purpose}
                 handleChange={this.handleChange}
+                submit={this.submit}
+                getlastkm={this.getlastkm}
               />
             )}
           />
