@@ -10,10 +10,13 @@ import Reports from "./components/Reports";
 import { BrowserRouter, Route } from "react-router-dom";
 import data from "./data.json";
 import "typeface-roboto";
+import { getData } from "./utils/getData";
 
 class App extends Component {
   state = {
-    carData: null
+    carData: null,
+    reportData: null,
+    carLogs: null
   };
 
   selectCar = (e, history) => {
@@ -25,6 +28,11 @@ class App extends Component {
     });
   };
 
+  getLogs = () => {
+    getData("/logs").then(carLogs => {
+      this.setState({ carLogs });
+    });
+  };
   render() {
     return (
       <BrowserRouter>
@@ -37,7 +45,17 @@ class App extends Component {
               <Cars {...props} data={data} handler={this.selectCar} />
             )}
           />
-          <Route exact path="/reports" component={Reports} />
+          <Route
+            exact
+            path="/reports"
+            render={props => (
+              <Reports
+                data={this.state.carLogs}
+                getLogs={this.getLogs}
+                {...props}
+              />
+            )}
+          />
           <Route exact path="/" component={Login} />
           <Route exact path="/" component={Home} />
           <Route exact path="/" component={Footer} />
