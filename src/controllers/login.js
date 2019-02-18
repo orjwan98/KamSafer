@@ -4,7 +4,7 @@ require('env2')('.env');
 
 exports.post = (req, res) => {
   const { username, password } = req.body;
-  const { hashed, secret, username: userhere } = process.env;
+  const { hashed, SECRET, username: userhere } = process.env;
   if (userhere === username) {
     bcrypt.compare(password, hashed, (err, match) => {
       if (err) {
@@ -14,7 +14,7 @@ exports.post = (req, res) => {
           {
             username,
           },
-          secret,
+          SECRET,
         );
         res.cookie('logged_in', token, {
           maxAge: 99999,
