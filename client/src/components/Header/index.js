@@ -38,8 +38,8 @@ const styles = {
     fontWeight: "bold",
     fontSize: "0.5rem",
     position: "absolute",
-    top: "10px",
-    left: "200px",
+    top: "0.5rem",
+    left: "13rem",
     padding: "0rem"
   }
 };

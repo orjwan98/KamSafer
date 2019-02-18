@@ -3,8 +3,6 @@ const { logs } = require('../database/models');
 
 const Op = Sequelize.Op;
 exports.get = (req, res) => {
-  console.log(req.params.year);
-  console.log(req.params.month);
   const year = req.params.year;
   const month = req.params.month;
   const from = new Date(year, month - 1, 1).toISOString();
