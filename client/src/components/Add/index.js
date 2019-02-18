@@ -7,8 +7,6 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 import TextField from "@material-ui/core/TextField";
-import Input from "@material-ui/core/Input";
-import InputLabel from "@material-ui/core/InputLabel";
 import green from "@material-ui/core/colors/green";
 import red from "@material-ui/core/colors/red";
 import grey from "@material-ui/core/colors/grey";

@@ -9,9 +9,8 @@ import Calendar from "./components/Calendar";
 import Reports from "./components/Reports";
 import Add from "./components/Add";
 import { addHelper } from "./utils/addHelper.js";
-
+import { getData } from "./utils/getData";
 import { BrowserRouter, Route } from "react-router-dom";
-import data from "./data.json";
 import "typeface-roboto";
 
 class App extends Component {
@@ -23,7 +22,14 @@ class App extends Component {
     end_km: null,
     total: null,
     note: null,
-    failed:false
+    failed:false,
+    carsData : null,
+  };
+
+  getcars = () => {
+    getData("/cars").then(carsData => {
+      this.setState({ carsData });
+    });
   };
 
   getlastkm =()=>{
@@ -57,12 +63,13 @@ class App extends Component {
       });
       events.preventDefault();
   }
+
   selectCar = (e, history) => {
-    const chosen = data.filter(ele => {
-      return ele.car_no === e;
+    const chosen = this.state.carsData.filter(ele => {
+      return ele.car_id === e;
     });
     this.setState({ carId: chosen }, () => {
-      history.push("/reports");
+      history.push("/home");
     });
   };
   render() {
@@ -74,7 +81,7 @@ class App extends Component {
             exact
             path="/cars"
             render={props => (
-              <Cars {...props} data={data} handler={this.selectCar} />
+              <Cars {...props} data={this.state.carsData} getcars={this.getcars} handler={this.selectCar} />
             )}
           />
           <Route exact path="/reports" component={Reports} />

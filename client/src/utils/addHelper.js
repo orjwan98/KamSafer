@@ -7,13 +7,3 @@ export const addHelper = data => {
     return response.json();
   });
 };
-
-export const getlastkm = data => {
-  return fetch("/getstartkm", {
-    method: "GET",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data)
-  }).then(response => {
-    return response.json();
-  });
-};

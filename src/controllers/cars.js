@@ -8,5 +8,8 @@ exports.get = (req, res) => {
     .then((result) => {
       res.json(result);
     })
-    .catch(() => (res.status(500).end()));
+    .catch((err) => {
+      console.log(err);
+      (res.status(500).end());
+    });
 };
