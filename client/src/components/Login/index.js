@@ -5,7 +5,7 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import { withStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
-import { loginHelper } from "../../utl/loginHelper";
+import { loginHelper } from "../../utils/loginHelper";
 const styles = {
   button: {
     backgroundColor: "red"

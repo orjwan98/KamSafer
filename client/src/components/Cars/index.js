@@ -2,24 +2,25 @@ import React, { Component } from "react";
 import Car from "../Car";
 
 class Cars extends Component {
-  constructor(props) {
-    super(props);
-  }
+  componentDidMount() {
+   this.props.getcars();
+ }
   render() {
+    const { data } = this.props;
     return (
       <div className="cars">
-        {this.props.data.map(element => {
-          return (
+
+        {data?data.map(element => (
             <Car
               history={this.props.history}
-              key={element.car_no}
+              key={element.car_id}
               owner={element.owner}
               model={element.model}
               car_no={element.car_no}
               handler={this.props.handler}
             />
-          );
-        })}
+
+        )): "Loading..."}
       </div>
     );
   }
