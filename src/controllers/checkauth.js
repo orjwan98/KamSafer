@@ -1,10 +1,10 @@
 const jwt = require('jsonwebtoken');
-const cookie = require('cookie');
+const cookieparser = require('cookie-parser');
 
 const { SECRET, username } = process.env;
 exports.get = (req, res) => {
-  if (req.headers.cookie) {
-    const token = cookie.parse(req.headers.cookie).logged_in;
+  if (req.headers) {
+    const token = cookieparser(req.headers).logged_in;
     jwt.verify(token, SECRET, (err, decoded) => {
       if (err) {
         return res.status(400).json({ auth: 'false' });
