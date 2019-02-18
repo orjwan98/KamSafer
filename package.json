@@ -28,6 +28,7 @@
     "body-parser": "^1.18.3",
     "env2": "^2.2.2",
     "express": "^4.16.4",
+    "material-ui-icons": "^1.0.0-beta.36",
     "jsonwebtoken": "^8.4.0",
     "nodemon": "^1.18.10",
     "pg": "^7.8.0",

@@ -10,6 +10,7 @@ logs.belongsTo(car, {
   targetKey: 'id',
 });
 
+logs.hook('afterCreate', log => car.update({ last_log_km: log.end_km }, { where: { id: log.car_id } }));
 const seq = new Promise((resolve, reject) => {
   db.sync()
     .then(() => {

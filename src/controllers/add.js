@@ -12,5 +12,8 @@ exports.post = (req, res) => {
     .then(() => {
       res.json({ message: 'Done' });
     })
-    .catch(() => (res.status(500).end()));
+    .catch((error) => {
+      console.log(error);
+      res.status(500).end();
+    });
 };
