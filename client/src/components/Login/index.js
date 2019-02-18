@@ -13,6 +13,10 @@ const styles = {
 };
 
 class Login extends Component {
+  ComponentDidMount() {
+    this.props.auth();
+  }
+
   constructor(props) {
     super(props);
     this.state = {

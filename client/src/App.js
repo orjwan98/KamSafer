@@ -9,7 +9,6 @@ import Calendar from "./components/Calendar";
 import Reports from "./components/Reports";
 import Add from "./components/Add";
 import { addHelper } from "./utils/addHelper.js";
-
 import { BrowserRouter, Route } from "react-router-dom";
 import data from "./data.json";
 import "typeface-roboto";
@@ -23,23 +22,26 @@ class App extends Component {
     end_km: null,
     total: null,
     note: null,
-    failed:false
+    failed: false,
+    userLogin: null
   };
 
-  getlastkm =()=>{
-    fetch("/getstartkm/"+this.state.carId).then(response=>{
-      return response.json()
-    }).then(result=>{
-      this.setState({start_km:result[0].last_log_km})
-    })
-  }
+  getlastkm = () => {
+    fetch("/getstartkm/" + this.state.carId)
+      .then(response => {
+        return response.json();
+      })
+      .then(result => {
+        this.setState({ start_km: result[0].last_log_km });
+      });
+  };
 
   handleChange = name => event => {
     this.setState({ [name]: event.target.value });
   };
-  submit = (events) => {
+  submit = events => {
     const { history } = this.props;
-    const { purpose, start_km, end_km, driver_name, note} = this.state;
+    const { purpose, start_km, end_km, driver_name, note } = this.state;
     events.preventDefault();
     addHelper({ purpose, start_km, end_km, driver_name, note })
       .then(result => {
@@ -55,8 +57,8 @@ class App extends Component {
         console.log(error);
         console.log("An error has occurred please try again");
       });
-      events.preventDefault();
-  }
+    events.preventDefault();
+  };
   selectCar = (e, history) => {
     const chosen = data.filter(ele => {
       return ele.car_no === e;
@@ -65,11 +67,17 @@ class App extends Component {
       history.push("/reports");
     });
   };
+
+  auth = () => {
+    authentication("/login").then(userLogin => {
+      this.setState({ userLogin });
+    });
+  };
   render() {
     return (
       <BrowserRouter>
         <React.Fragment>
-          <Route  path="/" component={Header} />
+          <Route path="/" component={Header} />
           <Route
             exact
             path="/cars"
@@ -78,7 +86,13 @@ class App extends Component {
             )}
           />
           <Route exact path="/reports" component={Reports} />
-          <Route exact path="/login" component={Login} />
+          <Route
+            exact
+            path="/login"
+            render={props => (
+              <Login data={this.state.userLogin} auth={this.auth} {...props} />
+            )}
+          />
           <Route exact path="/home" component={Home} />
           <Route exact path="/" component={Footer} />
           <Route exact path="/confirm" component={Confirm} />
