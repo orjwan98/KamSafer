@@ -12,6 +12,7 @@ import { addHelper } from "./utils/addHelper.js";
 import { getData } from "./utils/getData";
 import { BrowserRouter, Route } from "react-router-dom";
 import "typeface-roboto";
+import { getData } from "./utils/getData";
 
 class App extends Component {
   state = {
@@ -24,7 +25,8 @@ class App extends Component {
     note: null,
     failed:false,
     carsData : null,
-  };
+    reportData: null,
+    carLogs: null  };
 
   getcars = () => {
     getData("/cars").then(carsData => {
@@ -72,6 +74,12 @@ class App extends Component {
       history.push("/home");
     });
   };
+  
+  getLogs = () => {
+    getData("/logs").then(carLogs => {
+      this.setState({ carLogs });
+    });
+  };
   render() {
     return (
       <BrowserRouter>
@@ -84,9 +92,19 @@ class App extends Component {
               <Cars {...props} data={this.state.carsData} getcars={this.getcars} handler={this.selectCar} />
             )}
           />
-          <Route exact path="/reports" component={Reports} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/home" component={Home} />
+          <Route
+            exact
+            path="/reports"
+            render={props => (
+              <Reports
+                data={this.state.carLogs}
+                getLogs={this.getLogs}
+                {...props}
+              />
+            )}
+          />
+          <Route exact path="/" component={Login} />
+          <Route exact path="/" component={Home} />
           <Route exact path="/" component={Footer} />
           <Route exact path="/confirm" component={Confirm} />
           <Route exact path="/clender" component={Calendar} />

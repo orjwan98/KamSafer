@@ -3,7 +3,6 @@ export const getData = url => {
     method: "GET",
     headers: { "Content-Type": "application/json" }
   }).then(response => {
-     return response.json();
-  })
-
+    return response.json();
+  });
 };
