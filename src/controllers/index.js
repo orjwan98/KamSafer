@@ -18,7 +18,7 @@ router.post('/addnote', cookiesValidator, addnote.post);
 router.get('/notes', cookiesValidator, notes.get);
 router.get('/logmonth/:year/:month', cookiesValidator, logmonth.get);
 router.post('/login', login.post);
-router.get('/checkauth', cookiesValidator, checkauth.get);
+router.get('/checkauth', checkauth.get);
 router.get('/getstartkm/:car_id', getstartkm.get);
 
 module.exports = router;

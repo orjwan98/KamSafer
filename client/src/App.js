@@ -10,7 +10,6 @@ import Reports from "./components/Reports";
 import Add from "./components/Add";
 import { addHelper } from "./utils/addHelper.js";
 import { getData } from "./utils/getData";
-import { authentication } from "./utils/authentication";
 import { BrowserRouter, Route } from "react-router-dom";
 import "typeface-roboto";
 
@@ -62,7 +61,6 @@ class App extends Component {
         }
       })
       .catch(error => {
-        console.log(error);
         console.log("An error has occurred please try again");
       });
     events.preventDefault();
@@ -77,11 +75,6 @@ class App extends Component {
     });
   };
 
-  auth = () => {
-    authentication("/login").then(userLogin => {
-      this.setState({ userLogin });
-    });
-  };
   render() {
     return (
       <BrowserRouter>
