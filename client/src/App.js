@@ -16,7 +16,7 @@ import "typeface-roboto";
 
 class App extends Component {
   state = {
-    carData: 1,
+    carId: 1,
     purpose: "Personal",
     driver_name: null,
     start_km: null,
@@ -27,7 +27,7 @@ class App extends Component {
   };
 
   getlastkm =()=>{
-    fetch("/getstartkm/"+this.state.carData).then(response=>{
+    fetch("/getstartkm/"+this.state.carId).then(response=>{
       return response.json()
     }).then(result=>{
       this.setState({start_km:result[0].last_log_km})
@@ -35,9 +35,7 @@ class App extends Component {
   }
 
   handleChange = name => event => {
-    console.log(event.target.value);
     this.setState({ [name]: event.target.value });
-    //console.log(this.state);
   };
   submit = (events) => {
     const { history } = this.props;
@@ -63,7 +61,7 @@ class App extends Component {
     const chosen = data.filter(ele => {
       return ele.car_no === e;
     });
-    this.setState({ carData: chosen }, () => {
+    this.setState({ carId: chosen }, () => {
       history.push("/reports");
     });
   };
@@ -79,7 +77,7 @@ class App extends Component {
               <Cars {...props} data={data} handler={this.selectCar} />
             )}
           />
-          <Route exact path="/home" component={Reports} />
+          <Route exact path="/reports" component={Reports} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/home" component={Home} />
           <Route exact path="/" component={Footer} />
