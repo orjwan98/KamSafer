@@ -48,7 +48,7 @@ const styles = {
     width: "4rem"
   }
 };
-const Header = ({ classes, location }) => {
+const Header = ({ classes, location, history }) => {
   const { pathname } = location;
   if (pathname !== "/login") {
     return (
@@ -56,7 +56,15 @@ const Header = ({ classes, location }) => {
         <Toolbar>
           {pathname !== "/cars" && (
             <div>
-              <img className={classes.logo3} alt="logo" src={Reply} />
+              <img
+                className={classes.logo3}
+                alt="logo"
+                src={Reply}
+                onClick={() => {
+                  history.go(-1);
+                  return false;
+                }}
+              />
             </div>
           )}
           <div className={classes.container}>
