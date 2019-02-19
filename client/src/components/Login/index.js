@@ -6,6 +6,8 @@ import TextField from "@material-ui/core/TextField";
 import { withStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import { loginHelper } from "../../utils/loginHelper";
+import { authentication } from "../../utils/authentication";
+
 const styles = {
   button: {
     backgroundColor: "red"
@@ -13,6 +15,19 @@ const styles = {
 };
 
 class Login extends Component {
+  componentDidMount() {
+    const { history } = this.props;
+    authentication()
+      .then(result => {
+        if (result.auth) {
+          history.push("/cars");
+        }
+      })
+      .catch(error => {
+        console.log("An error has occurred please try again");
+      });
+  }
+
   constructor(props) {
     super(props);
     this.state = {

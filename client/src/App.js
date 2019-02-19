@@ -31,6 +31,7 @@ class App extends Component {
     carLogs: null,
     year:null,
     month:null,
+    userLogin: null
   };
 
 }
@@ -43,19 +44,23 @@ class App extends Component {
       this.setState({ carsData });
     });
   };
-  getlastkm =()=>{
-    fetch("/getstartkm/"+this.state.carId).then(response=>{
-      return response.json()
-    }).then(result=>{
-      this.setState({start_km:result[0].last_log_km})
-    })
-  }
+
+  getlastkm = () => {
+    fetch("/getstartkm/" + this.state.carId)
+      .then(response => {
+        return response.json();
+      })
+      .then(result => {
+        this.setState({ start_km: result[0].last_log_km });
+      });
+  };
+
   handleChange = name => event => {
     this.setState({ [name]: event.target.value });
   };
-  submit = (events) => {
+  submit = events => {
     const { history } = this.props;
-    const { purpose, start_km, end_km, driver_name, note} = this.state;
+    const { purpose, start_km, end_km, driver_name, note } = this.state;
     events.preventDefault();
     addHelper({ purpose, start_km, end_km, driver_name, note })
       .then(result => {
@@ -68,11 +73,10 @@ class App extends Component {
         }
       })
       .catch(error => {
-        console.log(error);
         console.log("An error has occurred please try again");
       });
-      events.preventDefault();
-  }
+    events.preventDefault();
+  };
 
   selectCar = (e, history) => {
 
@@ -90,12 +94,17 @@ class App extends Component {
     return (
       <BrowserRouter>
         <React.Fragment>
-          <Route  path="/" component={Header} />
+          <Route path="/" component={Header} />
           <Route
             exact
             path="/cars"
             render={props => (
-              <Cars {...props} data={this.state.carsData} getcars={this.getcars} handler={this.selectCar} />
+              <Cars
+                {...props}
+                data={this.state.carsData}
+                getcars={this.getcars}
+                handler={this.selectCar}
+              />
             )}
           />
           <Route
@@ -108,7 +117,12 @@ class App extends Component {
               />
             )}
           />
-          <Route exact path="/login" component={Login} />
+          <Route
+            path="/"
+            render={props => (
+              <Login data={this.state.userLogin} auth={this.auth} {...props} />
+            )}
+          />
           <Route exact path="/home" component={Home} />
           <Route exact path="/footer" component={Footer} />
           <Route exact path="/confirm" component={Confirm} />

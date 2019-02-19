@@ -6,6 +6,7 @@ const addnote = require('./addnote');
 const logmonth = require('./logmonth');
 const notes = require('./notes');
 const login = require('./login');
+const checkauth = require('./checkauth');
 const cookiesValidator = require('../validation/cookieVaildator.js');
 const getstartkm = require('./getstartkm');
 
@@ -17,6 +18,7 @@ router.post('/addnote', cookiesValidator, addnote.post);
 router.get('/notes', cookiesValidator, notes.get);
 router.get('/logmonth/:year/:month', cookiesValidator, logmonth.get);
 router.post('/login', login.post);
+router.get('/checkauth', cookiesValidator, checkauth.get);
 router.get('/getstartkm/:car_id', getstartkm.get);
 
 module.exports = router;
