@@ -94,14 +94,13 @@ class App extends Component {
           />
           <Route exact path="/reports" component={Reports} />
           <Route
-            exact
-            path="/login"
+            path="/"
             render={props => (
               <Login data={this.state.userLogin} auth={this.auth} {...props} />
             )}
           />
           <Route exact path="/home" component={Home} />
-          <Route exact path="/" component={Footer} />
+          <Route exact path="/footer" component={Footer} />
           <Route exact path="/confirm" component={Confirm} />
           <Route exact path="/clender" component={Calendar} />
           <Route

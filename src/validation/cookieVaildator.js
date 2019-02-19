@@ -10,7 +10,7 @@ const cookiesValidator = (req, res, next) => {
       return;
     }
 
-    res.status(400);
+    res.status(403).json({ auth: false });
   });
 };
 module.exports = cookiesValidator;
