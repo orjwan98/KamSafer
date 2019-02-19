@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { withCookies, Cookies } from 'react-cookie';
+import { instanceOf } from 'prop-types';
 import Login from "./components/Login";
 import Header from "./components/Header";
 import Cars from "./components/Cars";
@@ -12,10 +14,10 @@ import { addHelper } from "./utils/addHelper.js";
 import { getData } from "./utils/getData";
 import { BrowserRouter, Route } from "react-router-dom";
 import "typeface-roboto";
-import { getData } from "./utils/getData";
-
 class App extends Component {
-  state = {
+  constructor(props){
+    super(props)
+  this.state = {
     carId: 1,
     purpose: "Personal",
     driver_name: null,
@@ -26,14 +28,21 @@ class App extends Component {
     failed:false,
     carsData : null,
     reportData: null,
-    carLogs: null  };
+    carLogs: null,
+    year:null,
+    month:null,
+  };
+
+}
+    static propTypes = {
+       cookies: instanceOf(Cookies).isRequired
+     };
 
   getcars = () => {
     getData("/cars").then(carsData => {
       this.setState({ carsData });
     });
   };
-
   getlastkm =()=>{
     fetch("/getstartkm/"+this.state.carId).then(response=>{
       return response.json()
@@ -41,7 +50,6 @@ class App extends Component {
       this.setState({start_km:result[0].last_log_km})
     })
   }
-
   handleChange = name => event => {
     this.setState({ [name]: event.target.value });
   };
@@ -67,19 +75,17 @@ class App extends Component {
   }
 
   selectCar = (e, history) => {
+
     const chosen = this.state.carsData.filter(ele => {
       return ele.car_id === e;
     });
     this.setState({ carId: chosen }, () => {
       history.push("/home");
+        this.props.cookies.set('car_id',e);
+        console.log('carrrrr',this.props.cookies.get('car_id'));
     });
   };
-  
-  getLogs = () => {
-    getData("/logs").then(carLogs => {
-      this.setState({ carLogs });
-    });
-  };
+
   render() {
     return (
       <BrowserRouter>
@@ -98,14 +104,13 @@ class App extends Component {
             render={props => (
               <Reports
                 data={this.state.carLogs}
-                getLogs={this.getLogs}
                 {...props}
               />
             )}
           />
-          <Route exact path="/" component={Login} />
-          <Route exact path="/" component={Home} />
-          <Route exact path="/" component={Footer} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/home" component={Home} />
+          <Route exact path="/footer" component={Footer} />
           <Route exact path="/confirm" component={Confirm} />
           <Route exact path="/clender" component={Calendar} />
           <Route
@@ -131,4 +136,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withCookies(App);

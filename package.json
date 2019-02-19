@@ -28,12 +28,15 @@
     "cookie": "^0.3.1",
     "cookie-parser": "^1.4.4",
     "env2": "^2.2.2",
+    "exceljs": "^1.7.0",
     "express": "^4.16.4",
     "jsonwebtoken": "^8.4.0",
     "material-ui-icons": "^1.0.0-beta.36",
     "nodemon": "^1.18.10",
     "pg": "^7.8.0",
-    "sequelize": "^4.42.0"
+    "react-csv": "^1.1.1",
+    "sequelize": "^4.42.0",
+    "tempfile": "^2.0.0"
   },
   "devDependencies": {
     "eslint": "^5.13.0",

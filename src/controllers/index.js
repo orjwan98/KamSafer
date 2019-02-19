@@ -12,7 +12,7 @@ const getstartkm = require('./getstartkm');
 const router = express.Router();
 router.get('/cars', cookiesValidator, cars.get);
 router.post('/add', cookiesValidator, add.post);
-router.get('/logs', cookiesValidator, logs.get);
+router.get('/logs/:year/:month', cookiesValidator, logs.get);
 router.post('/addnote', cookiesValidator, addnote.post);
 router.get('/notes', cookiesValidator, notes.get);
 router.get('/logmonth/:year/:month', cookiesValidator, logmonth.get);
