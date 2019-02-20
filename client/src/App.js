@@ -30,7 +30,11 @@ class App extends Component {
     reportData: null,
     year:null,
     month:null,
-    userLogin: null
+    userLogin: null,
+    carinfo:null,
+    owner:null,
+    model_color:null,
+    car_no:null
   };
 }
   static propTypes = {
@@ -40,6 +44,13 @@ class App extends Component {
     getData("/cars").then(carsData => {
       this.setState({ carsData });
     });
+  };
+  carsinfo = () => {
+    getData("/carsinfo").then(carinfo=> {
+      this.setState({ model_color:carinfo[0].model_color});
+      this.setState({ car_no:carinfo[0].car_no});
+    });
+    // console.log(this.state.carinfo);
   };
   getlastkm = () => {
     fetch("/getstartkm/" + this.state.carId)
@@ -110,7 +121,14 @@ class App extends Component {
           />
           <Route exact path="/login" component={Login} />
           <Route exact path="/home" component={Home} />
-          <Route exact path="/footer" component={Footer} />
+          <Route path="/" render={props => (
+            <Footer
+              {...props}
+              model_color={this.state.model_color}
+              car_no={this.state.car_no}
+              carsinfo={this.carsinfo}
+            />
+          )}/>
           <Route exact path="/confirm" component={Confirm} />
           <Route exact path="/clender" component={Calendar} />
           <Route
