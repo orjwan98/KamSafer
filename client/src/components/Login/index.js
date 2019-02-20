@@ -1,18 +1,74 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
+import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import FormControl from "@material-ui/core/FormControl";
+import Input from "@material-ui/core/Input";
+import InputLabel from "@material-ui/core/InputLabel";
+import Paper from "@material-ui/core/Paper";
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import KS_logo from "./KS_logo.png";
 import Mercy from "./Mercy .png";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
 import { withStyles } from "@material-ui/core/styles";
-import PropTypes from "prop-types";
 import { loginHelper } from "../../utils/loginHelper";
 import { authentication } from "../../utils/authentication";
 
-const styles = {
-  button: {
-    backgroundColor: "red"
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: "#A11010"
+    },
+    typography: {
+      useNextVariants: true
+    }
   }
-};
+});
+
+const styles = theme => ({
+  main: {
+    width: "auto",
+    display: "block", // Fix IE 11 issue.
+    marginLeft: theme.spacing.unit * 3,
+    marginRight: theme.spacing.unit * 3,
+    [theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
+      width: 400,
+      marginLeft: "auto",
+      marginRight: "auto"
+    }
+  },
+  paper: {
+    marginTop: theme.spacing.unit * 8,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme
+      .spacing.unit * 3}px`
+  },
+  avatar: {
+    width: "100px",
+    height: "100px",
+    backgroundColor: "#FCE5E9"
+  },
+  form: {
+    width: "100%", // Fix IE 11 issue.
+    marginTop: theme.spacing.unit
+  },
+  submit: {
+    marginTop: theme.spacing.unit * 3
+  },
+  KSLogo: {
+    width: "70px",
+    height: "70px"
+  },
+
+  Mercy: {
+    width: "180px",
+    height: "40px",
+    marginTop: "50px",
+    marginBottom: "15px"
+  }
+});
 
 class Login extends Component {
   componentDidMount() {
@@ -64,45 +120,50 @@ class Login extends Component {
   render() {
     const { classes } = this.props;
     return (
-      <div className="header">
-        <div>
-          <img className="logo" alt="logo" src={KS_logo} />
-        </div>
-        <div className="title">KamSafer </div>
-        <div className="form">
-          <form onSubmit={this.handleSubmit}>
-            <label>
-              Username:
-              <TextField
-                type="text"
-                name="username"
-                value={this.state.username}
-                onChange={this.handleInputChange}
-              />
-            </label>
-            <label>
-              Password:
-              <TextField
-                type="Password"
-                name="password"
-                value={this.state.password}
-                onChange={this.handleInputChange}
-              />
-            </label>
-            {this.state.failed && <span>Username or Password incorrect</span>}
-            <Button
-              onClick={this.handleSubmit}
-              variant="contained"
-              className={classes.button}
-            >
-              Log in
-            </Button>
-          </form>
-        </div>
-        <div>
-          <img className="logos" alt="logo" src={Mercy} />
-        </div>
-      </div>
+      <MuiThemeProvider theme={theme}>
+        <main className={classes.main}>
+          <CssBaseline />
+          <Paper className={classes.paper}>
+            <Avatar className={classes.avatar}>
+              <img src={KS_logo} className={classes.KSLogo} />
+            </Avatar>
+
+            <form className={classes.form} onSubmit={this.handleSubmit}>
+              <FormControl margin="normal" required fullWidth>
+                <InputLabel htmlFor="username">Username</InputLabel>
+                <Input
+                  id="username"
+                  name="username"
+                  value={this.state.username}
+                  onChange={this.handleInputChange}
+                />
+              </FormControl>
+              <FormControl margin="normal" required fullWidth>
+                <InputLabel htmlFor="password">Password</InputLabel>
+                <Input
+                  id="password"
+                  name="password"
+                  type="Password"
+                  name="password"
+                  value={this.state.password}
+                  onChange={this.handleInputChange}
+                />
+              </FormControl>
+              <Button
+                onClick={this.handleSubmit}
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+              >
+                Log in
+              </Button>
+            </form>
+            <img className={classes.Mercy} alt="logo" src={Mercy} />
+          </Paper>
+        </main>
+      </MuiThemeProvider>
     );
   }
 }
