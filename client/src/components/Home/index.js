@@ -32,17 +32,25 @@ const styles = theme => ({
   }
 });
 
-const Home = ({ classes }) => {
+const Home = ({ classes, history }) => {
   return (
     <React.Fragment>
-      <Button variant="contained" className={classes.button}>
+      <Button
+        variant="contained"
+        className={classes.button}
+        onClick={() => history.push("/add")}
+      >
         <div className={classes.container}>
           <img alt="logo" src={Plus} className={classes.icon} />
           <span className={classes.text}>Add Trip</span>
         </div>
       </Button>
 
-      <Button variant="contained" className={classes.button}>
+      <Button
+        variant="contained"
+        className={classes.button}
+        onClick={() => history.push("/reports")}
+      >
         <div className={classes.container}>
           <img alt="logo" src={Show} className={classes.icon} />
           <span className={classes.text}>Show Reports</span>
