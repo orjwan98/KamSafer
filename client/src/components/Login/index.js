@@ -12,6 +12,7 @@ import KS_logo from "./KS_logo.png";
 import Mercy from "./Mercy .png";
 import { withStyles } from "@material-ui/core/styles";
 import { loginHelper } from "../../utils/loginHelper";
+import { authentication } from "../../utils/authentication";
 
 const theme = createMuiTheme({
   palette: {
@@ -70,6 +71,19 @@ const styles = theme => ({
 });
 
 class Login extends Component {
+  componentDidMount() {
+    const { history } = this.props;
+    authentication()
+      .then(result => {
+        if (result.auth) {
+          history.push("/cars");
+        }
+      })
+      .catch(error => {
+        console.log("An error has occurred please try again");
+      });
+  }
+
   constructor(props) {
     super(props);
     this.state = {
