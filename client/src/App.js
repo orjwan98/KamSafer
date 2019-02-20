@@ -41,6 +41,7 @@ class App extends Component {
       this.setState({ carsData });
     });
   };
+
   getlastkm = () => {
     fetch("/getstartkm/" + this.state.carId)
       .then(response => {
@@ -50,6 +51,7 @@ class App extends Component {
         this.setState({ start_km: result[0].last_log_km });
       });
   };
+
   handleChange = name => event => {
     this.setState({ [name]: event.target.value });
   };
@@ -81,6 +83,7 @@ class App extends Component {
       this.props.cookies.set("car_id", e);
     });
   };
+
   render() {
     return (
       <BrowserRouter>
