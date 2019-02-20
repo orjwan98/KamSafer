@@ -50,7 +50,6 @@ class App extends Component {
       this.setState({ model_color:carinfo[0].model_color});
       this.setState({ car_no:carinfo[0].car_no});
     });
-    // console.log(this.state.carinfo);
   };
   getlastkm = () => {
     fetch("/getstartkm/" + this.state.carId)
@@ -126,6 +125,7 @@ class App extends Component {
               {...props}
               model_color={this.state.model_color}
               car_no={this.state.car_no}
+              carinfo={this.state.carinfo}
               carsinfo={this.carsinfo}
             />
           )}/>

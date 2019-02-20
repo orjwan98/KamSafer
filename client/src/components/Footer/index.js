@@ -23,9 +23,10 @@ const styles = {
   }
 };
 
-const Footer = ({model_color,car_no,classes, history,carsinfo, location }) => {
+const Footer = ({model_color,car_no,classes, history,carinfo, location ,carsinfo}) => {
+  const { pathname } = location;
+  if ((pathname !== "/") && (pathname !== "/login")&& (pathname !== "/cars")) {
   carsinfo()
-    const { pathname } = location;
   return (
     <Card className={classes.root}>
       <CardContent>
@@ -40,4 +41,6 @@ const Footer = ({model_color,car_no,classes, history,carsinfo, location }) => {
       </CardContent>
     </Card>
   )}
+  return null;
+}
 export default withStyles(styles)(Footer);
