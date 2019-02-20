@@ -10,7 +10,7 @@ import Reports from "./components/Reports";
 import Add from "./components/Add";
 import { addHelper } from "./utils/addHelper.js";
 import { getData } from "./utils/getData";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route, Redirect } from "react-router-dom";
 import "typeface-roboto";
 
 class App extends Component {
@@ -80,6 +80,8 @@ class App extends Component {
       <BrowserRouter>
         <React.Fragment>
           <Route path="/" component={Header} />
+
+          <Route path="/" render={() => <Redirect to="/login" />} />
           <Route
             exact
             path="/cars"
@@ -94,7 +96,8 @@ class App extends Component {
           />
           <Route exact path="/reports" component={Reports} />
           <Route
-            path="/"
+            exact
+            path="/login"
             render={props => (
               <Login data={this.state.userLogin} auth={this.auth} {...props} />
             )}
