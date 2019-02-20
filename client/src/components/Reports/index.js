@@ -51,7 +51,6 @@ const styles = theme => ({
     marginTop: theme.spacing.unit * 2,
   },
 });
-
 class Reports extends React.Component {
   state = {
    month: new Date().getMonth() + 1,
@@ -59,7 +58,6 @@ class Reports extends React.Component {
    labelWidth: 0,
    carLogs:null
  };
-
   componentDidMount() {
     this.getLogs();
   }
@@ -73,7 +71,6 @@ class Reports extends React.Component {
      this.setState({ carLogs });
    });
  };
-
   download=()=>{
     console.log('year',this.state.year,'month',this.state.month);
     fetch(`/logmonth/${this.state.year}/${this.state.month}`).then(response=>{
@@ -88,7 +85,6 @@ class Reports extends React.Component {
     return (
       <div>
       <h1 align="center" className={classes.title}>Vehicle Log Sheet</h1>
-
       <FormControl className={classes.formControl}>
           <InputLabel htmlFor="uncontrolled-native">Month</InputLabel>
           <NativeSelect defaultValue={this.state.month}
@@ -96,19 +92,8 @@ class Reports extends React.Component {
           id="uncontrolled-native"
           onChange={this.handleChange('month')}
            />}>
-            <option value="" />
-            <option value={1}>1</option>
-            <option value={2}>2</option>
-            <option value={3}>3</option>
-            <option value={4}>4</option>
-            <option value={5}>5</option>
-            <option value={6}>6</option>
-            <option value={7}>7</option>
-            <option value={8}>8</option>
-            <option value={9}>9</option>
-            <option value={10}>10</option>
-            <option value={11}>11</option>
-            <option value={12}>12</option>
+           {new Array(12).fill(0).map((_,index)=> (<option value={index+1}>{index+1}</option>))}
+
           </NativeSelect>
           <FormHelperText>Select Date to see reports on it</FormHelperText>
         </FormControl>
@@ -120,20 +105,7 @@ class Reports extends React.Component {
             defaultValue={this.state.year}
             onChange={this.handleChange('year')}
           >
-            <option value="" >
-            </option>
-            <option value={2019}>2019</option>
-            <option value={2020}>2020</option>
-            <option value={2021}>2021</option>
-            <option value={2022}>2022</option>
-            <option value={2023}>2023</option>
-            <option value={2024}>2024</option>
-            <option value={2025}>2025</option>
-            <option value={2026}>2026</option>
-            <option value={2027}>2027</option>
-            <option value={2028}>2028</option>
-            <option value={2029}>2029</option>
-            <option value={2030}>2030</option>
+          {new Array(50).fill(0).map((_,index)=> (<option value={index+2019}>{index+2019}</option>))}
           </NativeSelect>
         </FormControl>
 

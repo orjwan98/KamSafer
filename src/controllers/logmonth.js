@@ -35,14 +35,6 @@ exports.get = (req, res) => {
       workbook.xlsx.write(res).then(() => {
         res.end();
       });
-
-      // const tempFilePath = tempfile('logs.xlsx');
-      // workbook.xlsx.writeFile(tempFilePath).then(() => {
-      //   console.log('werer', tempFilePath);
-      //   res.sendFile(tempFilePath, (error) => {
-      //     console.log('erorrr', error);
-      //   });
-      // });
     })
     .catch(() => (res.status(500).end()));
 };

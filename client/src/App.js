@@ -28,23 +28,19 @@ class App extends Component {
     failed:false,
     carsData : null,
     reportData: null,
-    carLogs: null,
     year:null,
     month:null,
     userLogin: null
   };
-
 }
-    static propTypes = {
+  static propTypes = {
        cookies: instanceOf(Cookies).isRequired
      };
-
   getcars = () => {
     getData("/cars").then(carsData => {
       this.setState({ carsData });
     });
   };
-
   getlastkm = () => {
     fetch("/getstartkm/" + this.state.carId)
       .then(response => {
@@ -54,7 +50,6 @@ class App extends Component {
         this.setState({ start_km: result[0].last_log_km });
       });
   };
-
   handleChange = name => event => {
     this.setState({ [name]: event.target.value });
   };
@@ -77,7 +72,6 @@ class App extends Component {
       });
     events.preventDefault();
   };
-
   selectCar = (e, history) => {
 
     const chosen = this.state.carsData.filter(ele => {
@@ -86,10 +80,8 @@ class App extends Component {
     this.setState({ carId: chosen }, () => {
       history.push("/home");
         this.props.cookies.set('car_id',e);
-        console.log('carrrrr',this.props.cookies.get('car_id'));
     });
   };
-
   render() {
     return (
       <BrowserRouter>
@@ -112,17 +104,11 @@ class App extends Component {
             path="/reports"
             render={props => (
               <Reports
-                data={this.state.carLogs}
                 {...props}
               />
             )}
           />
-          <Route
-            path="/"
-            render={props => (
-              <Login data={this.state.userLogin} auth={this.auth} {...props} />
-            )}
-          />
+          <Route exact path="/login" component={Login} />
           <Route exact path="/home" component={Home} />
           <Route exact path="/footer" component={Footer} />
           <Route exact path="/confirm" component={Confirm} />
