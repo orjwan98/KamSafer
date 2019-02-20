@@ -13,7 +13,8 @@ class Cars extends Component {
         {data?data.map(element => (
             <Car
               history={this.props.history}
-              key={element.car_id}
+              key={element.id}
+              car_id={element.id}
               owner={element.owner}
               model={element.model}
               car_no={element.car_no}

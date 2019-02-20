@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { withCookies, Cookies } from "react-cookie";
+import { instanceOf } from "prop-types";
 import Login from "./components/Login";
 import Header from "./components/Header";
 import Cars from "./components/Cars";
@@ -12,27 +14,33 @@ import { addHelper } from "./utils/addHelper.js";
 import { getData } from "./utils/getData";
 import { BrowserRouter, Route, Redirect } from "react-router-dom";
 import "typeface-roboto";
-
 class App extends Component {
-  state = {
-    carId: 1,
-    purpose: "Personal",
-    driver_name: null,
-    start_km: null,
-    end_km: null,
-    total: null,
-    note: null,
-    failed: false,
-    carsData: null,
-    userLogin: null
+  constructor(props) {
+    super(props);
+    this.state = {
+      carId: 1,
+      purpose: "Personal",
+      driver_name: null,
+      start_km: null,
+      end_km: null,
+      total: null,
+      note: null,
+      failed: false,
+      carsData: null,
+      reportData: null,
+      year: null,
+      month: null,
+      userLogin: null
+    };
+  }
+  static propTypes = {
+    cookies: instanceOf(Cookies).isRequired
   };
-
   getcars = () => {
     getData("/cars").then(carsData => {
       this.setState({ carsData });
     });
   };
-
   getlastkm = () => {
     fetch("/getstartkm/" + this.state.carId)
       .then(response => {
@@ -42,7 +50,6 @@ class App extends Component {
         this.setState({ start_km: result[0].last_log_km });
       });
   };
-
   handleChange = name => event => {
     this.setState({ [name]: event.target.value });
   };
@@ -65,16 +72,15 @@ class App extends Component {
       });
     events.preventDefault();
   };
-
   selectCar = (e, history) => {
     const chosen = this.state.carsData.filter(ele => {
       return ele.car_id === e;
     });
     this.setState({ carId: chosen }, () => {
       history.push("/home");
+      this.props.cookies.set("car_id", e);
     });
   };
-
   render() {
     return (
       <BrowserRouter>
@@ -94,14 +100,12 @@ class App extends Component {
               />
             )}
           />
-          <Route exact path="/reports" component={Reports} />
           <Route
             exact
-            path="/login"
-            render={props => (
-              <Login data={this.state.userLogin} auth={this.auth} {...props} />
-            )}
+            path="/reports"
+            render={props => <Reports {...props} />}
           />
+          <Route exact path="/login" component={Login} />
           <Route exact path="/home" component={Home} />
           <Route exact path="/footer" component={Footer} />
           <Route exact path="/confirm" component={Confirm} />
@@ -129,4 +133,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withCookies(App);
