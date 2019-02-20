@@ -93,7 +93,6 @@ class Login extends Component {
     };
   }
   handleInputChange = ({ target: { name, value } }) => {
-    console.log(this.state);
     this.setState({
       [name]: value
     });
@@ -102,14 +101,12 @@ class Login extends Component {
   handleSubmit = event => {
     const { history } = this.props;
     const { username, password } = this.state;
-    console.log("info", username, password);
     event.preventDefault();
     loginHelper({ username, password })
       .then(result => {
         if (result.logged) {
           history.push("/cars");
         } else {
-          console.log("error");
           this.setState({
             failed: true
           });

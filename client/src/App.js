@@ -30,7 +30,11 @@ class App extends Component {
       reportData: null,
       year: null,
       month: null,
-      userLogin: null
+      userLogin: null,
+      carinfo: null,
+      owner: null,
+      model_color: null,
+      car_no: null
     };
   }
   static propTypes = {
@@ -41,7 +45,18 @@ class App extends Component {
       this.setState({ carsData });
     });
   };
+  carsinfo = () => {
+    getData("/carsinfo").then(carinfo => {
+      this.setState({ model_color: carinfo[0].model_color });
+      this.setState({ car_no: carinfo[0].car_no });
+    });
+  };
+  logout = history => {
+    this.props.cookies.remove("car_id");
+    this.props.cookies.remove("logged_in");
 
+    history.push("/login");
+  };
   getlastkm = () => {
     fetch("/getstartkm/" + this.state.carId)
       .then(response => {
@@ -88,7 +103,10 @@ class App extends Component {
     return (
       <BrowserRouter>
         <React.Fragment>
-          <Route path="/" component={Header} />
+          <Route
+            path="/"
+            render={props => <Header {...props} logout={this.logout} />}
+          />
 
           <Route path="/" render={() => <Redirect to="/login" />} />
           <Route
@@ -110,7 +128,18 @@ class App extends Component {
           />
           <Route exact path="/login" component={Login} />
           <Route exact path="/home" component={Home} />
-          <Route exact path="/footer" component={Footer} />
+          <Route
+            path="/"
+            render={props => (
+              <Footer
+                {...props}
+                model_color={this.state.model_color}
+                car_no={this.state.car_no}
+                carinfo={this.state.carinfo}
+                carsinfo={this.carsinfo}
+              />
+            )}
+          />
           <Route exact path="/confirm" component={Confirm} />
           <Route exact path="/clender" component={Calendar} />
           <Route
