@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { withCookies, Cookies } from 'react-cookie';
-import { instanceOf } from 'prop-types';
+import { withCookies, Cookies } from "react-cookie";
+import { instanceOf } from "prop-types";
 import Login from "./components/Login";
 import Header from "./components/Header";
 import Cars from "./components/Cars";
@@ -12,30 +12,30 @@ import Reports from "./components/Reports";
 import Add from "./components/Add";
 import { addHelper } from "./utils/addHelper.js";
 import { getData } from "./utils/getData";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route, Redirect } from "react-router-dom";
 import "typeface-roboto";
 class App extends Component {
-  constructor(props){
-    super(props)
-  this.state = {
-    carId: 1,
-    purpose: "Personal",
-    driver_name: null,
-    start_km: null,
-    end_km: null,
-    total: null,
-    note: null,
-    failed:false,
-    carsData : null,
-    reportData: null,
-    year:null,
-    month:null,
-    userLogin: null
-  };
-}
+  constructor(props) {
+    super(props);
+    this.state = {
+      carId: 1,
+      purpose: "Personal",
+      driver_name: null,
+      start_km: null,
+      end_km: null,
+      total: null,
+      note: null,
+      failed: false,
+      carsData: null,
+      reportData: null,
+      year: null,
+      month: null,
+      userLogin: null
+    };
+  }
   static propTypes = {
-       cookies: instanceOf(Cookies).isRequired
-     };
+    cookies: instanceOf(Cookies).isRequired
+  };
   getcars = () => {
     getData("/cars").then(carsData => {
       this.setState({ carsData });
@@ -80,20 +80,21 @@ class App extends Component {
     events.preventDefault();
   };
   selectCar = (e, history) => {
-
     const chosen = this.state.carsData.filter(ele => {
       return ele.car_id === e;
     });
     this.setState({ carId: chosen }, () => {
       history.push("/home");
-        this.props.cookies.set('car_id',e);
+      this.props.cookies.set("car_id", e);
     });
   };
   render() {
     return (
       <BrowserRouter>
         <React.Fragment>
-          <Route path="/" render={props=> (<Header {...props} logout={this.logout}/>)}/>
+<Route path="/" render={props=> (<Header {...props} logout={this.logout}/>)}/>
+
+          <Route path="/" render={() => <Redirect to="/login" />} />
           <Route
             exact
             path="/cars"
@@ -109,11 +110,7 @@ class App extends Component {
           <Route
             exact
             path="/reports"
-            render={props => (
-              <Reports
-                {...props}
-              />
-            )}
+            render={props => <Reports {...props} />}
           />
           <Route exact path="/login" component={Login} />
           <Route exact path="/home" component={Home} />

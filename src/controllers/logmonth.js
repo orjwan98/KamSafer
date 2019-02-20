@@ -2,7 +2,6 @@ const Sequelize = require('sequelize');
 
 const excel = require('exceljs');
 const { logs } = require('../database/models');
-const tempfile = require('tempfile');
 
 const Op = Sequelize.Op;
 exports.get = (req, res) => {
