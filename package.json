@@ -34,9 +34,7 @@
     "material-ui-icons": "^1.0.0-beta.36",
     "nodemon": "^1.18.10",
     "pg": "^7.8.0",
-    "react-csv": "^1.1.1",
-    "sequelize": "^4.42.0",
-    "tempfile": "^2.0.0"
+    "sequelize": "^4.42.0"
   },
   "devDependencies": {
     "eslint": "^5.13.0",
