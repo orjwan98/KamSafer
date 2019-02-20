@@ -48,7 +48,7 @@ const styles = {
     width: "4rem"
   }
 };
-const Header = ({ classes, location, history }) => {
+const Header = ({ classes, location, history,logout }) => {
   const { pathname } = location;
   if (pathname !== "/login") {
     return (
@@ -75,7 +75,7 @@ const Header = ({ classes, location, history }) => {
               KamSafer
             </Typography>
           </div>
-          <Button variant="outlined" className={classes.button}>
+          <Button variant="outlined" className={classes.button} onClick={()=>logout(history)}>
             Log out
           </Button>
         </Toolbar>

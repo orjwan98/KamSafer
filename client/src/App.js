@@ -41,6 +41,13 @@ class App extends Component {
       this.setState({ carsData });
     });
   };
+  logout = (history) => {
+    this.props.cookies.remove('car_id');
+    this.props.cookies.remove('logged_in');
+
+    history.push("/login")
+
+  };
   getlastkm = () => {
     fetch("/getstartkm/" + this.state.carId)
       .then(response => {
@@ -85,7 +92,7 @@ class App extends Component {
     return (
       <BrowserRouter>
         <React.Fragment>
-          <Route path="/" component={Header} />
+<Route path="/" render={props=> (<Header {...props} logout={this.logout}/>)}/>
 
           <Route path="/" render={() => <Redirect to="/login" />} />
           <Route
