@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { withCookies, Cookies } from "react-cookie";
+import { instanceOf } from "prop-types";
 import Login from "./components/Login";
 import Header from "./components/Header";
 import Cars from "./components/Cars";
@@ -12,20 +14,28 @@ import { addHelper } from "./utils/addHelper.js";
 import { getData } from "./utils/getData";
 import { BrowserRouter, Route } from "react-router-dom";
 import "typeface-roboto";
-
 class App extends Component {
-  state = {
-    carId: 1,
-    purpose: "Personal",
-    driver_name: null,
-    start_km: null,
-    end_km: null,
-    total: null,
-    note: null,
-    failed: false,
-    carsData: null
+  constructor(props) {
+    super(props);
+    this.state = {
+      carId: 1,
+      purpose: "Personal",
+      driver_name: null,
+      start_km: null,
+      end_km: null,
+      total: null,
+      note: null,
+      failed: false,
+      carsData: null,
+      reportData: null,
+      year: null,
+      month: null,
+      userLogin: null
+    };
+  }
+  static propTypes = {
+    cookies: instanceOf(Cookies).isRequired
   };
-
   getcars = () => {
     getData("/cars").then(carsData => {
       this.setState({ carsData });
@@ -60,7 +70,6 @@ class App extends Component {
         }
       })
       .catch(error => {
-        console.log(error);
         console.log("An error has occurred please try again");
       });
     events.preventDefault();
@@ -72,6 +81,7 @@ class App extends Component {
     });
     this.setState({ carId: chosen }, () => {
       history.push("/home");
+      this.props.cookies.set("car_id", e);
     });
   };
 
@@ -92,10 +102,14 @@ class App extends Component {
               />
             )}
           />
-          <Route exact path="/reports" component={Reports} />
+          <Route
+            exact
+            path="/reports"
+            render={props => <Reports {...props} />}
+          />
           <Route exact path="/login" component={Login} />
-          <Route exact path="/home" render={props => <Home {...props} />} />
-          <Route exact path="/" component={Footer} />
+          <Route exact path="/home" component={Home} />
+          <Route exact path="/footer" component={Footer} />
           <Route exact path="/confirm" component={Confirm} />
           <Route exact path="/clender" component={Calendar} />
           <Route
@@ -121,4 +135,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withCookies(App);
