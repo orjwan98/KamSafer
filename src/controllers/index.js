@@ -9,6 +9,7 @@ const login = require('./login');
 const checkauth = require('./checkauth');
 const cookiesValidator = require('../validation/cookieVaildator.js');
 const getstartkm = require('./getstartkm');
+const carsinfo = require('./carsinfo');
 
 const router = express.Router();
 router.get('/cars', cookiesValidator, cars.get);
@@ -20,5 +21,6 @@ router.get('/logmonth/:year/:month', cookiesValidator, logmonth.get);
 router.post('/login', login.post);
 router.get('/checkauth', cookiesValidator, checkauth.get);
 router.get('/getstartkm/:car_id', getstartkm.get);
+router.get('/carsinfo', carsinfo.get);
 
 module.exports = router;

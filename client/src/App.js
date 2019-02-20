@@ -15,24 +15,28 @@ import { getData } from "./utils/getData";
 import { BrowserRouter, Route, Redirect } from "react-router-dom";
 import "typeface-roboto";
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      carId: 1,
-      purpose: "Personal",
-      driver_name: null,
-      start_km: null,
-      end_km: null,
-      total: null,
-      note: null,
-      failed: false,
-      carsData: null,
-      reportData: null,
-      year: null,
-      month: null,
-      userLogin: null
-    };
-  }
+  constructor(props){
+    super(props)
+  this.state = {
+    carId: 1,
+    purpose: "Personal",
+    driver_name: null,
+    start_km: null,
+    end_km: null,
+    total: null,
+    note: null,
+    failed:false,
+    carsData : null,
+    reportData: null,
+    year:null,
+    month:null,
+    userLogin: null,
+    carinfo:null,
+    owner:null,
+    model_color:null,
+    car_no:null
+  };
+}
   static propTypes = {
     cookies: instanceOf(Cookies).isRequired
   };
@@ -41,12 +45,17 @@ class App extends Component {
       this.setState({ carsData });
     });
   };
-  logout = (history) => {
-    this.props.cookies.remove('car_id');
-    this.props.cookies.remove('logged_in');
+  carsinfo = () => {
+    getData("/carsinfo").then(carinfo=> {
+      this.setState({ model_color:carinfo[0].model_color});
+      this.setState({ car_no:carinfo[0].car_no});
+    });
+}
+    logout = (history) => {
+      this.props.cookies.remove('car_id');
+      this.props.cookies.remove('logged_in');
 
-    history.push("/login")
-
+      history.push("/login")
   };
   getlastkm = () => {
     fetch("/getstartkm/" + this.state.carId)
@@ -114,7 +123,15 @@ class App extends Component {
           />
           <Route exact path="/login" component={Login} />
           <Route exact path="/home" component={Home} />
-          <Route exact path="/footer" component={Footer} />
+          <Route path="/" render={props => (
+            <Footer
+              {...props}
+              model_color={this.state.model_color}
+              car_no={this.state.car_no}
+              carinfo={this.state.carinfo}
+              carsinfo={this.carsinfo}
+            />
+          )}/>
           <Route exact path="/confirm" component={Confirm} />
           <Route exact path="/clender" component={Calendar} />
           <Route
