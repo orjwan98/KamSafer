@@ -15,28 +15,28 @@ import { getData } from "./utils/getData";
 import { BrowserRouter, Route, Redirect } from "react-router-dom";
 import "typeface-roboto";
 class App extends Component {
-  constructor(props){
-    super(props)
-  this.state = {
-    carId: 1,
-    purpose: "Personal",
-    driver_name: null,
-    start_km: null,
-    end_km: null,
-    total: null,
-    note: null,
-    failed:false,
-    carsData : null,
-    reportData: null,
-    year:null,
-    month:null,
-    userLogin: null,
-    carinfo:null,
-    owner:null,
-    model_color:null,
-    car_no:null
-  };
-}
+  constructor(props) {
+    super(props);
+    this.state = {
+      carId: "1",
+      purpose: "Personal",
+      driver_name: null,
+      start_km: null,
+      end_km: null,
+      total: null,
+      note: null,
+      failed: false,
+      carsData: null,
+      reportData: null,
+      year: null,
+      month: null,
+      userLogin: null,
+      carinfo: null,
+      owner: null,
+      model_color: null,
+      car_no: null
+    };
+  }
   static propTypes = {
     cookies: instanceOf(Cookies).isRequired
   };
@@ -46,19 +46,21 @@ class App extends Component {
     });
   };
   carsinfo = () => {
-    getData("/carsinfo").then(carinfo=> {
-      this.setState({ model_color:carinfo[0].model_color});
-      this.setState({ car_no:carinfo[0].car_no});
+    getData("/carsinfo").then(carinfo => {
+      this.setState({ model_color: carinfo[0].model_color });
+      this.setState({ car_no: carinfo[0].car_no });
     });
-}
-    logout = (history) => {
-      this.props.cookies.remove('car_id');
-      this.props.cookies.remove('logged_in');
+  };
+  logout = history => {
+    this.props.cookies.remove("car_id");
+    this.props.cookies.remove("logged_in");
 
-      history.push("/login")
+    history.push("/login");
   };
   getlastkm = () => {
-    fetch("/getstartkm/" + this.state.carId)
+    const carId = this.state.carId;
+    const url = "/getstartkm/" + this.state.carId;
+    fetch(url)
       .then(response => {
         return response.json();
       })
@@ -66,6 +68,7 @@ class App extends Component {
         this.setState({ start_km: result[0].last_log_km });
       });
   };
+
   handleChange = name => event => {
     this.setState({ [name]: event.target.value });
   };
@@ -92,18 +95,22 @@ class App extends Component {
     const chosen = this.state.carsData.filter(ele => {
       return ele.car_id === e;
     });
-    this.setState({ carId: chosen }, () => {
+    this.setState({ carId: e, carsData: chosen[0] }, () => {
       history.push("/home");
       this.props.cookies.set("car_id", e);
     });
   };
+
   render() {
     return (
       <BrowserRouter>
         <React.Fragment>
-<Route path="/" render={props=> (<Header {...props} logout={this.logout}/>)}/>
+          <Route
+            path="/"
+            render={props => <Header {...props} logout={this.logout} />}
+          />
 
-          <Route path="/" render={() => <Redirect to="/login" />} />
+          <Route exact path="/" render={() => <Redirect to="/login" />} />
           <Route
             exact
             path="/cars"
@@ -123,15 +130,18 @@ class App extends Component {
           />
           <Route exact path="/login" component={Login} />
           <Route exact path="/home" component={Home} />
-          <Route path="/" render={props => (
-            <Footer
-              {...props}
-              model_color={this.state.model_color}
-              car_no={this.state.car_no}
-              carinfo={this.state.carinfo}
-              carsinfo={this.carsinfo}
-            />
-          )}/>
+          <Route
+            path="/"
+            render={props => (
+              <Footer
+                {...props}
+                model_color={this.state.model_color}
+                car_no={this.state.car_no}
+                carinfo={this.state.carinfo}
+                carsinfo={this.carsinfo}
+              />
+            )}
+          />
           <Route exact path="/confirm" component={Confirm} />
           <Route exact path="/clender" component={Calendar} />
           <Route
