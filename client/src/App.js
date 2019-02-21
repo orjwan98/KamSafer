@@ -18,7 +18,11 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+<<<<<<< HEAD
       carId: 1,
+=======
+      carId: "1",
+>>>>>>> master
       purpose: "Personal",
       driver_name: null,
       start_km: null,
@@ -58,7 +62,9 @@ class App extends Component {
     history.push("/login");
   };
   getlastkm = () => {
-    fetch("/getstartkm/" + this.state.carId)
+    const carId = this.state.carId;
+    const url = "/getstartkm/" + this.state.carId;
+    fetch(url)
       .then(response => {
         return response.json();
       })
@@ -66,6 +72,7 @@ class App extends Component {
         this.setState({ start_km: result[0].last_log_km });
       });
   };
+
   handleChange = name => event => {
     this.setState({ [name]: event.target.value });
   };
@@ -92,11 +99,12 @@ class App extends Component {
     const chosen = this.state.carsData.filter(ele => {
       return ele.car_id === e;
     });
-    this.setState({ carId: chosen }, () => {
+    this.setState({ carId: e, carsData: chosen[0] }, () => {
       history.push("/home");
       this.props.cookies.set("car_id", e);
     });
   };
+
   render() {
     return (
       <BrowserRouter>
@@ -106,7 +114,7 @@ class App extends Component {
             render={props => <Header {...props} logout={this.logout} />}
           />
 
-          <Route path="/" render={() => <Redirect to="/login" />} />
+          <Route exact path="/" render={() => <Redirect to="/login" />} />
           <Route
             exact
             path="/cars"
