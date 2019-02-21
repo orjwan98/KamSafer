@@ -81,6 +81,10 @@ class RadioButtonsGroup extends React.Component {
   componentDidMount() {
     this.props.getlastkm();
   }
+  submit = () => {
+    const { history } = this.props;
+    history.push("/confirm");
+  };
   render() {
     const { classes } = this.props;
     return (
@@ -149,7 +153,7 @@ class RadioButtonsGroup extends React.Component {
                 type="text"
                 label="Total"
                 value={
-                  this.props.end_km
+                  this.props.end_km > this.props.start_km
                     ? this.props.end_km - this.props.start_km
                     : 0
                 }
@@ -175,7 +179,7 @@ class RadioButtonsGroup extends React.Component {
               />
               {this.state.failed && <span>Data incorrect</span>}
               <Button
-                onClick={this.props.submit}
+                onClick={this.submit}
                 variant="raised"
                 type="submit"
                 className={classes.Addbtn}
