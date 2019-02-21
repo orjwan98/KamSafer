@@ -23,24 +23,33 @@ const styles = {
   }
 };
 
-const Footer = ({model_color,car_no,classes, history,carinfo, location ,carsinfo}) => {
+const Footer = ({
+  model_color,
+  car_no,
+  classes,
+  history,
+  carinfo,
+  location,
+  carsinfo
+}) => {
   const { pathname } = location;
-  if ((pathname !== "/") && (pathname !== "/login")&& (pathname !== "/cars")) {
-  carsinfo()
-  return (
-    <Card className={classes.root}>
-      <CardContent>
-        <div className={classes.position}>
-          <Typography variant="subtitle1" className={classes.childrenFont}>
-            {model_color}
-          </Typography>
-          <Typography variant="subtitle1" className={classes.childrenFont}>
-            {car_no}
-          </Typography>
-        </div>
-      </CardContent>
-    </Card>
-  )}
+  if (pathname !== "/" && pathname !== "/login" && pathname !== "/cars") {
+    console.log("rendering again");
+    return (
+      <Card className={classes.root}>
+        <CardContent>
+          <div className={classes.position}>
+            <Typography variant="subtitle1" className={classes.childrenFont}>
+              {model_color}
+            </Typography>
+            <Typography variant="subtitle1" className={classes.childrenFont}>
+              {car_no}
+            </Typography>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
   return null;
-}
+};
 export default withStyles(styles)(Footer);

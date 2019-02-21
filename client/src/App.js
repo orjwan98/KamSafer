@@ -18,7 +18,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      carId: 1,
+      carId: null,
       purpose: "Personal",
       driver_name: null,
       start_km: null,
@@ -47,8 +47,10 @@ class App extends Component {
   };
   carsinfo = () => {
     getData("/carsinfo").then(carinfo => {
-      this.setState({ model_color: carinfo[0].model_color });
-      this.setState({ car_no: carinfo[0].car_no });
+      this.setState({
+        model_color: carinfo[0].model_color,
+        car_no: carinfo[0].car_no
+      });
     });
   };
   logout = history => {
@@ -58,8 +60,7 @@ class App extends Component {
     history.push("/login");
   };
   getlastkm = () => {
-    const carId = this.state.carId;
-    const url = "/getstartkm/" + this.state.carId;
+    const url = "/getstartkm";
     fetch(url)
       .then(response => {
         return response.json();
@@ -72,14 +73,12 @@ class App extends Component {
   handleChange = name => event => {
     this.setState({ [name]: event.target.value });
   };
-  submit = events => {
-    const { history } = this.props;
+  submit = history => {
     const { purpose, start_km, end_km, driver_name, note } = this.state;
-    events.preventDefault();
     addHelper({ purpose, start_km, end_km, driver_name, note })
       .then(result => {
-        if (result.logged) {
-          history.push("/add");
+        if (result.added) {
+          history.push("/reports");
         } else {
           this.setState({
             failed: true
@@ -89,7 +88,6 @@ class App extends Component {
       .catch(error => {
         console.log("An error has occurred please try again");
       });
-    events.preventDefault();
   };
   selectCar = (e, history) => {
     const chosen = this.state.carsData.filter(ele => {
@@ -98,6 +96,7 @@ class App extends Component {
     this.setState({ carId: e, carsData: chosen[0] }, () => {
       history.push("/home");
       this.props.cookies.set("car_id", e);
+      this.carsinfo();
     });
   };
 
@@ -131,24 +130,19 @@ class App extends Component {
           <Route exact path="/login" component={Login} />
           <Route exact path="/home" component={Home} />
           <Route
-            path="/"
+            exact
+            path="/confirm"
             render={props => (
-              <Footer
-                {...props}
-                model_color={this.state.model_color}
-                car_no={this.state.car_no}
-                carinfo={this.state.carinfo}
-                carsinfo={this.carsinfo}
-              />
+              <Confirm {...props} submit={this.submit} {...this.state} />
             )}
           />
-          <Route exact path="/confirm" component={Confirm} />
           <Route exact path="/clender" component={Calendar} />
           <Route
             exact
             path="/add"
-            render={() => (
+            render={props => (
               <Add
+                {...props}
                 end_km={this.state.end_km}
                 start_km={this.state.start_km}
                 total={this.state.total}
@@ -158,6 +152,17 @@ class App extends Component {
                 handleChange={this.handleChange}
                 submit={this.submit}
                 getlastkm={this.getlastkm}
+              />
+            )}
+          />
+          <Route
+            path="/"
+            render={props => (
+              <Footer
+                {...props}
+                model_color={this.state.model_color}
+                car_no={this.state.car_no}
+                carinfo={this.state.carinfo}
               />
             )}
           />

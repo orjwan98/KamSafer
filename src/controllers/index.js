@@ -20,7 +20,7 @@ router.get('/notes', cookiesValidator, notes.get);
 router.get('/logmonth/:year/:month', cookiesValidator, logmonth.get);
 router.post('/login', login.post);
 router.get('/checkauth', cookiesValidator, checkauth.get);
-router.get('/getstartkm/:car_id', getstartkm.get);
+router.get('/getstartkm', getstartkm.get);
 router.get('/carsinfo', carsinfo.get);
 
 module.exports = router;

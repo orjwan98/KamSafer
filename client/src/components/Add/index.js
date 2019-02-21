@@ -153,7 +153,7 @@ class RadioButtonsGroup extends React.Component {
                 type="text"
                 label="Total"
                 value={
-                  this.props.end_km
+                  this.props.end_km > this.props.start_km
                     ? this.props.end_km - this.props.start_km
                     : 0
                 }

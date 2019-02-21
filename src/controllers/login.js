@@ -16,10 +16,7 @@ exports.post = (req, res) => {
           },
           SECRET,
         );
-        res.cookie('logged_in', token, {
-          maxAge: 99999,
-        }),
-        res.json({ logged: true });
+        res.cookie('logged_in', token), res.json({ logged: true });
       }
     });
   } else {

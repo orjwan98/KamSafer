@@ -77,6 +77,9 @@ const styles = themes => ({
     display: "flex",
     width: "50%",
     marginTop: "-0.001rem"
+  },
+  footer: {
+    fontWeight: "bold"
   }
 });
 
@@ -97,10 +100,8 @@ class Confirm extends Component {
       note,
       model_color,
       car_no,
-      history,
-      carsinfo
+      history
     } = this.props;
-    carsinfo();
     return (
       <MuiThemeProvider theme={theme}>
         <Card className={classes.root}>
@@ -167,14 +168,14 @@ class Confirm extends Component {
                   variant="subtitle1"
                   className={classes.span1}
                 >
-                  {model_color}
+                  <span className={classes.footer}> {model_color}</span>
                 </Typography>
                 <Typography
                   color="primary"
                   variant="subtitle1"
                   className={classes.span1}
                 >
-                  {car_no}
+                  <span className={classes.footer}> {car_no}</span>
                 </Typography>
               </div>
             </div>
