@@ -19,7 +19,7 @@ const styles = theme => ({
     "&$checked": {
       color: green[500]
     },
-    margin:10,
+    margin: 10
   },
   formControl: {
     margin: theme.spacing.unit * 3,
@@ -52,13 +52,13 @@ const styles = theme => ({
     marginRight: theme.spacing.unit,
     marginBottom: theme.spacing.unit
   },
-  Addbtn:{
-    backgroundColor:red[900],
+  Addbtn: {
+    backgroundColor: red[900],
     margin: "50px",
-    color:grey[50],
-    width:150,
-    height:40,
-    fontSize:20,
+    color: grey[50],
+    width: 150,
+    height: 40,
+    fontSize: 20
   }
 });
 
@@ -66,101 +66,113 @@ class RadioButtonsGroup extends React.Component {
   state = {
     value: "personal"
   };
-  componentDidMount(){
-    this.props.getlastkm()
+  componentDidMount() {
+    this.props.getlastkm();
   }
+  submit = () => {
+    const { history } = this.props;
+    history.push("/confirm");
+  };
   render() {
     const { classes } = this.props;
     return (
       <div>
-      <div className={classes.root}>
-        <FormControl
-          flexDirection="row"
-          component="fieldset"
-          className={classes.formControl}
-          onSubmit={this.props.submit}>
-          <FormLabel component="legend" className="Purpose">
-            Purpose
-          </FormLabel>
-          <RadioGroup
-            aria-label="Purpose"
-            name="purpose"
-            className={classes.group}
-            value={this.props.purpose}
-            onChange={this.props.handleChange("purpose")}
+        <div className={classes.root}>
+          <FormControl
+            flexDirection="row"
+            component="fieldset"
+            className={classes.formControl}
+            onSubmit={this.props.submit}
           >
-            <FormControlLabel
-              value="Buisness"
-              control={
-                <Radio color="primary"  />
-              }
-              label="Buisness"
-              labelPlacement="start"
-            />
-            <FormControlLabel
-              value="Personal"
-              control={<Radio color="primary" />}
-              label="Personal"
-              labelPlacement="start"
-            />
-          </RadioGroup>
-          <div className={classes.startEnd}>
-            <TextField
-            disabled
-              className={classes.norrow}
-              id="text1"
-              type="text"
-              name="start_km"
-              margin="normal"
-              color="secondary"
-              label="Start KM"
-              value={this.props.start_km?(this.props.start_km):(0)}
-              onChange={this.props.handleChange("start_km")}
-            />
+            <FormLabel component="legend" className="Purpose">
+              Purpose
+            </FormLabel>
+            <RadioGroup
+              aria-label="Purpose"
+              name="purpose"
+              className={classes.group}
+              value={this.props.purpose}
+              onChange={this.props.handleChange("purpose")}
+            >
+              <FormControlLabel
+                value="Buisness"
+                control={<Radio color="primary" />}
+                label="Buisness"
+                labelPlacement="start"
+              />
+              <FormControlLabel
+                value="Personal"
+                control={<Radio color="primary" />}
+                label="Personal"
+                labelPlacement="start"
+              />
+            </RadioGroup>
+            <div className={classes.startEnd}>
+              <TextField
+                disabled
+                className={classes.norrow}
+                id="text1"
+                type="text"
+                name="start_km"
+                margin="normal"
+                color="secondary"
+                label="Start KM"
+                value={this.props.start_km ? this.props.start_km : 0}
+                onChange={this.props.handleChange("start_km")}
+              />
 
+              <TextField
+                className={classes.narrow}
+                id="text2"
+                type="text"
+                name="end_km"
+                label="End Km"
+                margin="normal"
+                value={this.props.end_km}
+                onChange={this.props.handleChange("end_km")}
+              />
+            </div>
             <TextField
-              className={classes.narrow}
-              id="text2"
+              disabled
+              className={classes.normal}
+              id="text3"
+              name="total"
               type="text"
-              name="end_km"
-              label="End Km"
-              margin="normal"
-              value={this.props.end_km}
-              onChange={this.props.handleChange("end_km")}
+              label="Total"
+              value={
+                this.props.end_km ? this.props.end_km - this.props.start_km : 0
+              }
+              onChange={this.props.handleChange("total")}
             />
-          </div>
-          <TextField
-            disabled
-            className={classes.normal}
-            id="text3"
-            name="total"
-            type="text"
-            label="Total"
-            value={this.props.end_km?(this.props.end_km - this.props.start_km):(0)}
-            onChange={this.props.handleChange("total")}
-          />
-          <TextField
-            className={classes.normal}
-            id="text4"
-            type="text"
-            label="Driver"
-            name="driver_name"
-            value={this.props.driver_name}
-            onChange={this.props.handleChange("driver_name")}
-          />
-          <TextField
-            className={classes.normal}
-            id="text5"
-            type="text"
-            label="Note"
-            name="note"
-            value={this.props.note}
-            onChange={this.props.handleChange("note")}
-          />
-          {this.state.failed && <span>Data incorrect</span>}
-        <Button onClick={this.props.submit} variant="raised" type="submit" className={classes.Addbtn}>Add</Button>
-        </FormControl>
-      </div>
+            <TextField
+              className={classes.normal}
+              id="text4"
+              type="text"
+              label="Driver"
+              name="driver_name"
+              value={this.props.driver_name}
+              onChange={this.props.handleChange("driver_name")}
+            />
+            <TextField
+              className={classes.normal}
+              id="text5"
+              type="text"
+              label="Note"
+              name="note"
+              value={this.props.note}
+              onChange={this.props.handleChange("note")}
+            />
+            {this.state.failed && <span>Data incorrect</span>}
+            <Button
+              onClick={this.submit}
+              variant="raised"
+              type="submit"
+              className={classes.Addbtn}
+            >
+              Add
+            </Button>
+          </FormControl>
+        </div>
       </div>
     );
   }

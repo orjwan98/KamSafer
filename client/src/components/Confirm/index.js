@@ -96,9 +96,11 @@ class Confirm extends Component {
       driver_name,
       note,
       model_color,
-      car_no
+      car_no,
+      history,
+      carsinfo
     } = this.props;
-
+    carsinfo();
     return (
       <MuiThemeProvider theme={theme}>
         <Card className={classes.root}>
@@ -183,6 +185,7 @@ class Confirm extends Component {
             <Button
               variant="contained"
               type="submit"
+              onClick={() => this.props.submit(history)}
               className={classes.button}
             >
               Confirm
