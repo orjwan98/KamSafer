@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { withCookies, Cookies } from "react-cookie";
+import { instanceOf } from "prop-types";
 import Login from "./components/Login";
 import Header from "./components/Header";
 import Cars from "./components/Cars";
@@ -10,28 +12,51 @@ import Reports from "./components/Reports";
 import Add from "./components/Add";
 import { addHelper } from "./utils/addHelper.js";
 import { getData } from "./utils/getData";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route, Redirect } from "react-router-dom";
 import "typeface-roboto";
-
 class App extends Component {
-  state = {
-    carId: 1,
-    purpose: "",
-    driver_name: null,
-    start_km: null,
-    end_km: null,
-    total: null,
-    note: null,
-    failed: false,
-    carsData: null
+  constructor(props) {
+    super(props);
+    this.state = {
+      carId: 1,
+      purpose: "Personal",
+      driver_name: null,
+      start_km: null,
+      end_km: null,
+      total: null,
+      note: null,
+      failed: false,
+      carsData: null,
+      reportData: null,
+      year: null,
+      month: null,
+      userLogin: null,
+      carinfo: null,
+      owner: null,
+      model_color: null,
+      car_no: null
+    };
+  }
+  static propTypes = {
+    cookies: instanceOf(Cookies).isRequired
   };
-
   getcars = () => {
     getData("/cars").then(carsData => {
       this.setState({ carsData });
     });
   };
+  carsinfo = () => {
+    getData("/carsinfo").then(carinfo => {
+      this.setState({ model_color: carinfo[0].model_color });
+      this.setState({ car_no: carinfo[0].car_no });
+    });
+  };
+  logout = history => {
+    this.props.cookies.remove("car_id");
+    this.props.cookies.remove("logged_in");
 
+    history.push("/login");
+  };
   getlastkm = () => {
     fetch("/getstartkm/" + this.state.carId)
       .then(response => {
@@ -41,7 +66,6 @@ class App extends Component {
         this.setState({ start_km: result[0].last_log_km });
       });
   };
-
   handleChange = name => event => {
     this.setState({ [name]: event.target.value });
   };
@@ -60,25 +84,29 @@ class App extends Component {
         }
       })
       .catch(error => {
-        console.log(error);
         console.log("An error has occurred please try again");
       });
     events.preventDefault();
   };
-
   selectCar = (e, history) => {
     const chosen = this.state.carsData.filter(ele => {
       return ele.car_id === e;
     });
     this.setState({ carId: chosen }, () => {
       history.push("/home");
+      this.props.cookies.set("car_id", e);
     });
   };
   render() {
     return (
       <BrowserRouter>
         <React.Fragment>
-          <Route path="/" component={Header} />
+          <Route
+            path="/"
+            render={props => <Header {...props} logout={this.logout} />}
+          />
+
+          <Route path="/" render={() => <Redirect to="/login" />} />
           <Route
             exact
             path="/cars"
@@ -91,22 +119,32 @@ class App extends Component {
               />
             )}
           />
-          <Route exact path="/reports" component={Reports} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/home" component={Home} />
-          <Route exact path="/" component={Footer} />
           <Route
             exact
-            path="/confirm"
-            render={props => <Confirm {...props} {...this.state} />}
+            path="/reports"
+            render={props => <Reports {...props} />}
           />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/home" component={Home} />
+          <Route
+            path="/"
+            render={props => (
+              <Footer
+                {...props}
+                model_color={this.state.model_color}
+                car_no={this.state.car_no}
+                carinfo={this.state.carinfo}
+                carsinfo={this.carsinfo}
+              />
+            )}
+          />
+          <Route exact path="/confirm" component={Confirm} />
           <Route exact path="/clender" component={Calendar} />
           <Route
             exact
             path="/add"
-            render={props => (
+            render={() => (
               <Add
-                {...props}
                 end_km={this.state.end_km}
                 start_km={this.state.start_km}
                 total={this.state.total}
@@ -125,4 +163,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withCookies(App);
