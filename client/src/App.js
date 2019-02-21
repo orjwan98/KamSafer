@@ -18,11 +18,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-<<<<<<< HEAD
       carId: 1,
-=======
-      carId: "1",
->>>>>>> master
       purpose: "Personal",
       driver_name: null,
       start_km: null,
