@@ -25,7 +25,6 @@ const theme = createMuiTheme({
 const styles = themes => ({
   root: {
     borderLeft: "4px solid #A11010",
-    height: "40rem",
     vw: "90%",
     marginTop: "10%",
     marginBottom: "10%",
@@ -36,6 +35,7 @@ const styles = themes => ({
   button: {
     backgroundColor: red[900],
     margin: "4rem",
+    marginBottom: "0px",
     color: grey[50],
     width: 150,
     height: 40,
