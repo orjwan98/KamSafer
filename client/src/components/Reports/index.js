@@ -15,12 +15,6 @@ import FormControl from "@material-ui/core/FormControl";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import NativeSelect from "@material-ui/core/NativeSelect";
 import Input from "@material-ui/core/Input";
-import { getData } from "../../utils/getData";
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import NativeSelect from '@material-ui/core/NativeSelect';
-import Input from '@material-ui/core/Input';
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import { getData } from "../../utils/getData";
 
@@ -55,21 +49,21 @@ const styles = theme => ({
   title: {
     color: red[900]
   },
-  button:{
-   marginLeft:"300%",
-   marginTop:"20px",
-   backgroundColor:red[900],
-   marginBottom:"30px"
- },
- title:{
-   color:red[900]
- },
- head:{
-   backgroundColor:red[200],
-   color: theme.palette.common.red,
- },
- primary: { main: red[500] },
- formControl: {
+  button: {
+    marginLeft: "300%",
+    marginTop: "20px",
+    backgroundColor: red[900],
+    marginBottom: "30px"
+  },
+  title: {
+    color: red[900]
+  },
+  head: {
+    backgroundColor: red[200],
+    color: theme.palette.common.red
+  },
+  primary: { main: red[500] },
+  formControl: {
     margin: theme.spacing.unit,
     minWidth: 120,
     marginLeft: "20%"
@@ -98,202 +92,203 @@ class Reports extends React.Component {
     this.getLogs();
   }
   handleChange = name => event => {
-   this.setState({ [name]: event.target.value },()=>{
-     this.getLogs();
-   });
- };
- getLogs = () => {
-   const url= `/logs/${this.state.year}/${this.state.month}`;
-   getData(url).then(carLogs => {
-     this.setState({ carLogs });
-   });
- };
-  download=()=>{
-    const url = `/logmonth/${this.state.year}/${this.state.month}`;
-    fetch(url).then(response=>{
-      return response.blob();
-    }).then(blob=>{
-      download(blob,"logs.xlsx")
-    })
-    .catch(error => {
-      alert(`Error Try Again Later ! Refresh The Page`);
+    this.setState({ [name]: event.target.value }, () => {
+      this.getLogs();
     });
-  }
+  };
+  getLogs = () => {
+    const url = `/logs/${this.state.year}/${this.state.month}`;
+    getData(url).then(carLogs => {
+      this.setState({ carLogs });
+    });
+  };
+  download = () => {
+    const url = `/logmonth/${this.state.year}/${this.state.month}`;
+    fetch(url)
+      .then(response => {
+        return response.blob();
+      })
+      .then(blob => {
+        download(blob, "logs.xlsx");
+      })
+      .catch(error => {
+        alert(`Error Try Again Later ! Refresh The Page`);
+      });
+  };
   render() {
     const { classes } = this.props;
     const { carLogs } = this.state;
     return (
       <MuiThemeProvider theme={theme}>
-      <div>
-        <h1 align="center" className={classes.title}>
-          Vehicle Log Sheet
-        </h1>
-        <FormControl className={classes.formControl}>
-          <InputLabel htmlFor="uncontrolled-native">Month</InputLabel>
-          <NativeSelect
-            defaultValue={this.state.month}
-            input={
-              <Input
-                name="month"
-                id="uncontrolled-native"
-                onChange={this.handleChange("month")}
-              />
-            }
-          >
-            {new Array(12).fill(0).map((_, index) => (
-              <option value={index + 1}>{index + 1}</option>
-            ))}
-          </NativeSelect>
-          <FormHelperText>Select Date to see reports on it</FormHelperText>
-        </FormControl>
-        <FormControl className={classes.formControl}>
-          <InputLabel htmlFor="uncontrolled-native">Year</InputLabel>
-          <NativeSelect
-            className={classes.selectEmpty}
-            name="year"
-            defaultValue={this.state.year}
-            onChange={this.handleChange("year")}
-          >
-            {new Array(50).fill(0).map((_, index) => (
-              <option value={index + 2019}>{index + 2019}</option>
-            ))}
-          </NativeSelect>
-        </FormControl>
+        <div>
+          <h1 align="center" className={classes.title}>
+            Vehicle Log Sheet
+          </h1>
+          <FormControl className={classes.formControl}>
+            <InputLabel htmlFor="uncontrolled-native">Month</InputLabel>
+            <NativeSelect
+              defaultValue={this.state.month}
+              input={
+                <Input
+                  name="month"
+                  id="uncontrolled-native"
+                  onChange={this.handleChange("month")}
+                />
+              }
+            >
+              {new Array(12).fill(0).map((_, index) => (
+                <option value={index + 1}>{index + 1}</option>
+              ))}
+            </NativeSelect>
+            <FormHelperText>Select Date to see reports on it</FormHelperText>
+          </FormControl>
+          <FormControl className={classes.formControl}>
+            <InputLabel htmlFor="uncontrolled-native">Year</InputLabel>
+            <NativeSelect
+              className={classes.selectEmpty}
+              name="year"
+              defaultValue={this.state.year}
+              onChange={this.handleChange("year")}
+            >
+              {new Array(50).fill(0).map((_, index) => (
+                <option value={index + 2019}>{index + 2019}</option>
+              ))}
+            </NativeSelect>
+          </FormControl>
 
-        <Paper className={classes.root}>
-          <Table className={classes.table}>
-            <TableHead color="primary" className={classes.head}>
-              <TableRow>
-                <TableCell
-                  align="center"
-                  padding="dense"
-                  className={classes.tableHead}
-                >
-                  Date{" "}
-                </TableCell>
-                <TableCell
-                  align="center"
-                  padding="dense"
-                  className={classes.tableHead}
-                >
-                  Odometer Start
-                </TableCell>
-                <TableCell
-                  align="center"
-                  padding="dense"
-                  className={classes.tableHead}
-                >
-                  Odometer End
-                </TableCell>
-                <TableCell
-                  align="center"
-                  padding="dense"
-                  className={classes.tableHead}
-                >
-                  Trip Total (KM)
-                </TableCell>
-                <TableCell
-                  align="center"
-                  padding="dense"
-                  className={classes.tableHead}
-                >
-                  Driver
-                </TableCell>
-                <TableCell
-                  align="center"
-                  padding="dense"
-                  className={classes.tableHead}
-                >
-                  Purpose
-                </TableCell>
-                <TableCell
-                  align="center"
-                  padding="dense"
-                  className={classes.tableHead}
-                >
-                  Note
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {carLogs ? (
-                carLogs.length === 0 ? (
-                  <h2 align="center">No Logs</h2>
+          <Paper className={classes.root}>
+            <Table className={classes.table}>
+              <TableHead color="primary" className={classes.head}>
+                <TableRow>
+                  <TableCell
+                    align="center"
+                    padding="dense"
+                    className={classes.tableHead}
+                  >
+                    Date{" "}
+                  </TableCell>
+                  <TableCell
+                    align="center"
+                    padding="dense"
+                    className={classes.tableHead}
+                  >
+                    Odometer Start
+                  </TableCell>
+                  <TableCell
+                    align="center"
+                    padding="dense"
+                    className={classes.tableHead}
+                  >
+                    Odometer End
+                  </TableCell>
+                  <TableCell
+                    align="center"
+                    padding="dense"
+                    className={classes.tableHead}
+                  >
+                    Trip Total (KM)
+                  </TableCell>
+                  <TableCell
+                    align="center"
+                    padding="dense"
+                    className={classes.tableHead}
+                  >
+                    Driver
+                  </TableCell>
+                  <TableCell
+                    align="center"
+                    padding="dense"
+                    className={classes.tableHead}
+                  >
+                    Purpose
+                  </TableCell>
+                  <TableCell
+                    align="center"
+                    padding="dense"
+                    className={classes.tableHead}
+                  >
+                    Note
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {carLogs ? (
+                  carLogs.length === 0 ? (
+                    <h2 align="center">No Logs</h2>
+                  ) : (
+                    carLogs.map(row => (
+                      <TableRow key={row.id}>
+                        <TableCell
+                          align="center"
+                          padding="dense"
+                          className={classes.tableCell}
+                        >
+                          {new Date(row.createdAt).toLocaleDateString()}
+                        </TableCell>
+                        <TableCell
+                          align="center"
+                          padding="dense"
+                          className={classes.tableCell}
+                        >
+                          {row.start_km}
+                        </TableCell>
+                        <TableCell
+                          align="center"
+                          padding="dense"
+                          className={classes.tableCell}
+                        >
+                          {row.end_km}
+                        </TableCell>
+                        <TableCell
+                          align="center"
+                          padding="dense"
+                          className={classes.tableCell}
+                        >
+                          {row.end_km - row.start_km}
+                        </TableCell>
+                        <TableCell
+                          align="center"
+                          padding="dense"
+                          className={classes.tableCell}
+                        >
+                          {row.driver_name}
+                        </TableCell>
+                        <TableCell
+                          align="center"
+                          padding="dense"
+                          className={classes.tableCell}
+                        >
+                          {row.purpose}
+                        </TableCell>
+                        <TableCell
+                          align="center"
+                          padding="dense"
+                          className={classes.tableCell}
+                        >
+                          {row.note}
+                        </TableCell>
+                      </TableRow>
+                    ))
+                  )
                 ) : (
-                  carLogs.map(row => (
-                    <TableRow key={row.id}>
-                      <TableCell
-                        align="center"
-                        padding="dense"
-                        className={classes.tableCell}
-                      >
-                        {new Date(row.createdAt).toLocaleDateString()}
-                      </TableCell>
-                      <TableCell
-                        align="center"
-                        padding="dense"
-                        className={classes.tableCell}
-                      >
-                        {row.start_km}
-                      </TableCell>
-                      <TableCell
-                        align="center"
-                        padding="dense"
-                        className={classes.tableCell}
-                      >
-                        {row.end_km}
-                      </TableCell>
-                      <TableCell
-                        align="center"
-                        padding="dense"
-                        className={classes.tableCell}
-                      >
-                        {row.end_km - row.start_km}
-                      </TableCell>
-                      <TableCell
-                        align="center"
-                        padding="dense"
-                        className={classes.tableCell}
-                      >
-                        {row.driver_name}
-                      </TableCell>
-                      <TableCell
-                        align="center"
-                        padding="dense"
-                        className={classes.tableCell}
-                      >
-                        {row.purpose}
-                      </TableCell>
-                      <TableCell
-                        align="center"
-                        padding="dense"
-                        className={classes.tableCell}
-                      >
-                        {row.note}
-                      </TableCell>
-                    </TableRow>
-                  ))
-                )
-              ) : (
-                "Loading..."
-              )}
-            </TableBody>
-          </Table>
-        </Paper>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={this.download}
-          className={classes.button}
-        >
-          {" "}
-          Download{" "}
-        </Button>
-      </div>
+                  "Loading..."
+                )}
+              </TableBody>
+            </Table>
+          </Paper>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={this.download}
+            className={classes.button}
+          >
+            {" "}
+            Download{" "}
+          </Button>
+        </div>
+      </MuiThemeProvider>
     );
   }
 }
-
-
 
 export default withStyles(styles)(Reports);
