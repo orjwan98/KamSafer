@@ -49,15 +49,6 @@ const styles = theme => ({
   title: {
     color: red[900]
   },
-  button: {
-    marginLeft: "300%",
-    marginTop: "20px",
-    backgroundColor: red[900],
-    marginBottom: "30px"
-  },
-  title: {
-    color: red[900]
-  },
   head: {
     backgroundColor: red[200],
     color: theme.palette.common.red
@@ -282,8 +273,7 @@ class Reports extends React.Component {
             onClick={this.download}
             className={classes.button}
           >
-            {" "}
-            Download{" "}
+            Download
           </Button>
         </div>
       </MuiThemeProvider>
