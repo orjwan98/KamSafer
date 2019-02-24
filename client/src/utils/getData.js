@@ -4,5 +4,8 @@ export const getData = url => {
     headers: { "Content-Type": "application/json" }
   }).then(response => {
     return response.json();
+  })
+  .catch(error => {
+    alert(`Error Try Again Later ! Refresh The Page`);
   });
 };

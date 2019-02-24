@@ -15,9 +15,19 @@ import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import Input from '@material-ui/core/Input';
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import { getData } from "../../utils/getData";
 
-
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: "#A11010"
+    },
+    typography: {
+      useNextVariants: true
+    }
+  }
+});
 const styles = theme => ({
   root: {
     width: "100%",
@@ -33,6 +43,7 @@ const styles = theme => ({
    marginLeft:"300%",
    marginTop:"20px",
    backgroundColor:red[900],
+   marginBottom:"30px"
  },
  title:{
    color:red[900]
@@ -67,22 +78,27 @@ class Reports extends React.Component {
    });
  };
  getLogs = () => {
-   getData(`/logs/${this.state.year}/${this.state.month}`).then(carLogs => {
+   const url= `/logs/${this.state.year}/${this.state.month}`;
+   getData(url).then(carLogs => {
      this.setState({ carLogs });
    });
  };
   download=()=>{
-    console.log('year',this.state.year,'month',this.state.month);
-    fetch(`/logmonth/${this.state.year}/${this.state.month}`).then(response=>{
+    const url = `/logmonth/${this.state.year}/${this.state.month}`;
+    fetch(url).then(response=>{
       return response.blob();
     }).then(blob=>{
       download(blob,"logs.xlsx")
     })
+    .catch(error => {
+      alert(`Error Try Again Later ! Refresh The Page`);
+    });
   }
   render() {
     const { classes } = this.props;
     const { carLogs } = this.state;
     return (
+      <MuiThemeProvider theme={theme}>
       <div>
       <h1 align="center" className={classes.title}>Vehicle Log Sheet</h1>
       <FormControl className={classes.formControl}>
@@ -140,7 +156,9 @@ class Reports extends React.Component {
           </TableBody>
         </Table>
       </Paper>
-  </div>  );
+  </div>
+</MuiThemeProvider>
+  );
   }
 }
 
