@@ -61,10 +61,7 @@ class App extends Component {
   };
   getlastkm = () => {
     const url = "/getstartkm";
-    fetch(url)
-      .then(response => {
-        return response.json();
-      })
+    getData(url)
       .then(result => {
         this.setState({ start_km: result[0].last_log_km });
       });
