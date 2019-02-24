@@ -16,7 +16,8 @@ import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: "#A11010"
+      main: "#A11010",
+      dark:"red"
     },
     typography: {
       useNextVariants: true

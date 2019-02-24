@@ -6,7 +6,7 @@ export const authentication = () => {
     .then(response => {
       return response.json();
     })
-    .catch(err => {
-      console.log(err);
+    .catch(error => {
+      alert(`Error Try Again Later ! Refresh The Page`);
     });
 };

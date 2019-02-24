@@ -5,5 +5,8 @@ export const loginHelper = data => {
     body: JSON.stringify(data)
   }).then(response => {
     return response.json();
+  })
+  .catch(error => {
+    alert(`Error Try Again Later ! Refresh The Page`);
   });
 };
