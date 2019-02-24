@@ -1,5 +1,5 @@
 const express = require('express');
-const cars = require('./cars');
+const getcars = require('./getcars');
 const add = require('./add');
 const logs = require('./logs');
 const addnote = require('./addnote');
@@ -12,7 +12,7 @@ const getstartkm = require('./getstartkm');
 const carsinfo = require('./carsinfo');
 
 const router = express.Router();
-router.get('/cars', cookiesValidator, cars.get);
+router.get('/getcars', cookiesValidator, getcars.get);
 router.post('/add', cookiesValidator, add.post);
 router.get('/logs/:year/:month', cookiesValidator, logs.get);
 router.post('/addnote', cookiesValidator, addnote.post);

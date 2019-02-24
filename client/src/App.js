@@ -41,7 +41,7 @@ class App extends Component {
     cookies: instanceOf(Cookies).isRequired
   };
   getcars = () => {
-    getData("/cars").then(carsData => {
+    getData("/getcars").then(carsData => {
       this.setState({ carsData });
     });
   };
