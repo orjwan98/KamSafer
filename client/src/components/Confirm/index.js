@@ -48,7 +48,8 @@ const styles = themes => ({
   },
   warning: {
     fontSize: "1.2rem",
-    fontWeight: "bold"
+    fontWeight: "bold",
+    marginTop:"5px"
   },
   all: {
     fontWeight: "bold",
@@ -142,7 +143,7 @@ class Confirm extends Component {
                 variant="subtitle1"
                 className={classes.start}
               >
-                TotalTrip
+                Total Trip
                 <br />{" "}
                 <span className={classes.pargh}>{end_km - start_km}</span>
               </Typography>
@@ -179,9 +180,9 @@ class Confirm extends Component {
                 </Typography>
               </div>
             </div>
-            <Typography variant="subtitle1" className={classes.warning}>
+            <Typography variant="subtitle1" className={classes.warning} >
               <span className={classes.paragraph}>WARNING:</span>You cannot edit
-              this log once it's been saved !
+              this log once it's been saved!
             </Typography>
             <Button
               variant="contained"

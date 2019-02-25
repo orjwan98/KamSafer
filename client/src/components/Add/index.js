@@ -109,9 +109,9 @@ class RadioButtonsGroup extends React.Component {
                 onChange={this.props.handleChange("purpose")}
               >
                 <FormControlLabel
-                  value="Buisness"
+                  value="Business"
                   control={<Radio color="primary" />}
-                  label="Buisness"
+                  label="Business"
                   labelPlacement="start"
                 />
                 <FormControlLabel
