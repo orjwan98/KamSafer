@@ -12,9 +12,9 @@ KamSafer is a web app that enables you to log your trip's information. The purpo
  - Select the car I’ll be using
  - Confirm your trips and keep track of my kilometers travelled
  - Show the report of all logged trips
- -  View trips by date
- -  Download an excel version of my reports
- -  Leave the account
+ - View trips by date
+ - Download an excel version of my reports
+ - Leave the account
  # Key Technologies   
  - React.js : https://reactjs.org/docs/getting-started.html
  - Sequalize : http://docs.sequelizejs.com/
@@ -23,8 +23,8 @@ KamSafer is a web app that enables you to log your trip's information. The purpo
  
 # Architecture
 # Code structure
-- The client folder contains the 
-- The src folder contains the 
+- The client folder contains the front end code.
+- The src folder contains the backend and DB code.
 - The editor begins at client/components/login/index.js
 - config.js contains the dummy data for the app
 
