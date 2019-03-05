@@ -1,12 +1,8 @@
 # KamSafer
-A React js app made for Mercy Corps employee uses MC cars .
-> Our client : Anam Raheem
 
+# Brief Summary of key requirements / features
+ - Create app that enables you to log your trip's information using modern technologies:React.js.
 
-## What is KamSafer? 
-KamSafer is a web app that enables you to log your trip's information. The purpose, total kilometers travelled by your vehicle, and notes to include your destination. 
-
-# WebSite Link : [KamSafer](https://kamsafer.herokuapp.com/)
 
 ## User Journey:
 You can log in using the general user and password of the Mercy Corps organization, select your trip's car, and start adding your trip's information or view the overall reports of all trips. 
@@ -26,3 +22,18 @@ You can log in using the general user and password of the Mercy Corps organizati
 6- As a user who wants to share their reports, I wanna be able to download an excel version of my reports.
 
 7- As a user who may need to leave the account, I want to be able to log out.
+
+# User Guide
+# Development Setup
+- Make sure you have Node 8 and and NPM>5 installed
+- Run npm i to install npm deps.
+- Run npm run dev:build to build the project.
+
+# Demo
+(https://kamsafer.herokuapp.com/)
+
+# How to use KamSafer website
+- 
+-
+-
+-
