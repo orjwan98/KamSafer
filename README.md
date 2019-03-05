@@ -48,6 +48,6 @@ https://kamsafer.herokuapp.com/
 
 # Team Member
 - Sama Amro
-- Shaima Ihdosh
+- Shaima Ihdoosh
 - Orjwan Rajaby
     
