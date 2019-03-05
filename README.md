@@ -23,28 +23,29 @@ KamSafer is a web app that enables you to log your trip's information. The purpo
  
 # Architecture
 # Code structure
-- The client folder contains the front end code.
-- The src folder contains the backend and DB code.
+- The client folder contains the front end code
+- The src folder contains the backend and DB code
 - The editor begins at client/components/login/index.js
 - config.js contains the dummy data for the app
+- The entry point is an app.js file which manages all components, get and send data to the src/app.js file which contains all app  endpoints
 
 
 # User Guide
 # Development Setup
 - Make sure you have Node 8 and and NPM>5 installed
-- Run npm i to install npm deps.
-- Run npm run dev:build to build the project.
+- Run npm i to install npm deps
+- Run npm run dev:build to build the project
 
 # Demo
 https://kamsafer.herokuapp.com/
 
 # How to use KamSafer website
-- you should have a general username and password related to Mercy Core employees to login.
-- select the car model you want to use .
-- click add trip button to add trip, then add information about your trip.
-- click show report button to see all trips related to this car model.
-- click on Download report to get a excel version .
-- click logout to leave account .
+- you should have a general username and password related to Mercy Core employees to login
+- select the car model you want to use 
+- click add trip button to add trip, then add information about your trip
+- click show report button to see all trips related to this car model
+- click on Download report to get a excel version 
+- click logout to leave account 
 
 # Team Member
 - Sama Amro
