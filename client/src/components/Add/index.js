@@ -138,6 +138,7 @@ class RadioButtonsGroup extends React.Component {
                 <TextField
                   className={classes.narrow}
                   id="text2"
+                  inputProps={{ step: "0.01" }}
                   type="number"
                   name="end_km"
                   label="End Km"
