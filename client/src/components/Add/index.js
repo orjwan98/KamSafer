@@ -17,7 +17,7 @@ const theme = createMuiTheme({
   palette: {
     primary: {
       main: "#A11010",
-      dark:"red"
+      dark: "red"
     },
     typography: {
       useNextVariants: true
@@ -138,7 +138,7 @@ class RadioButtonsGroup extends React.Component {
                 <TextField
                   className={classes.narrow}
                   id="text2"
-                  type="text"
+                  type="number"
                   name="end_km"
                   label="End Km"
                   margin="normal"
@@ -166,7 +166,9 @@ class RadioButtonsGroup extends React.Component {
                 type="text"
                 label="Driver"
                 name="driver_name"
-                value={this.props.driver_name}
+                value={
+                  this.props.driver_name === null ? "" : this.props.driver_name
+                }
                 onChange={this.props.handleChange("driver_name")}
               />
               <TextField
