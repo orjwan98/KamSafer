@@ -139,7 +139,9 @@ class RadioButtonsGroup extends React.Component {
                   className={classes.narrow}
                   id="text2"
                   inputProps={{ step: "0.01" }}
-                  type="number"
+                  pattern="[0-9]*"
+                  type="tel"
+                  inputMode="numeric"
                   name="end_km"
                   label="End Km"
                   margin="normal"
