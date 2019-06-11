@@ -2,7 +2,7 @@
 
 KamSafer is a web app that enables you to log your trip's information. The purpose, total kilometers travelled by your vehicle, and notes to include your destination.
 
-# Breif summary of key requierments/features
+# Brief summary of key requierments/features
  - Create logs that enables you to log your trip's information using modern technologies:React.js.
  - Allows the users used app to download his logs in excel version.
  
